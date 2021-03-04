@@ -1,24 +1,34 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const http = require('http')
 
-app.use(express.static(__dirname + '/'));
 
-// Connecting to the html page with file reading.
-// const fs = require('fs');
-// const server = http.createServer((req, res) => {
-//   res.setHeader('Content-Type', 'text/html');
-//   fs.readFile('./index.html', (err, data) => {
-//     if (err) {
-//       console.log(err);
-//       res.end();
-//     } else {
-//       res.write(data);
-//       res.end();
-//     }
-//   })
-// });
+const path = require('path')
+// app.use(express.static(__dirname + '/frontend'));
+// Static Files
+app.use(express.static('public'));
+
+// folder example
+app.use('/css', express.static(__dirname + './public/css'))
+app.use('/css', express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")))
+
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+// Set View's
+// app.set('views', './frontend');
+// app.set('view engine', 'ejs');
+
+
+// Navigation
+app.get('', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/homepage/index.html'))
+})
+
+// go to other page by apis
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/landing/landing.html'))
+})
+
 
 app.listen(port, () => {
   console.log('listening on *:3000')

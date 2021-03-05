@@ -21,12 +21,12 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 
 // Navigation
 app.get('', (req, res) => {
-  res.sendFile(path.join(__dirname, './frontend/homepage/index.html'))
+  res.sendFile(path.join(__dirname, './frontend/Dashboard/dashboard.html'))
 })
 
 // go to other page by apis
-app.get('/landing', (req, res) => {
-  res.sendFile(path.join(__dirname, './frontend/landing/landing.html'))
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/About/about.html'))
 })
 
 

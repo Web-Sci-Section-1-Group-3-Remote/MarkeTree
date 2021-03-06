@@ -1,4 +1,14 @@
 body {
+  margin: 0;
+  background-color: #488453;
+}
+
+.mainContent {
   margin: 2em;
-  background-color: yellowgreen;
+}
+
+.navbar {
+  width: 100%;
+  margin-bottom: 1%;
+  margin-top: 0;
 }

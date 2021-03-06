@@ -36,8 +36,8 @@ app.get('/event', (req, res) => {
 app.get('/profile', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/Profile/profile.html'))
 })
-//Contact us
-app.get('/contactus', (req, res) => {
+// Help center
+app.get('/help', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/FileScam/fileScam.html'))
 })
 app.listen(port, () => {

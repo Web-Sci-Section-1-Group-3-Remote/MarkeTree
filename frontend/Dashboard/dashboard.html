@@ -5,94 +5,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarkeTree</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/master.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-static-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">
-            <img src="assets/logo.png" width="120" height="40" alt="">
-          </a>
+    <nav class="navbar navbar-static-top navbar-expand-xl navbar-light">
+        <figure class="figure">
+            <img src="assets/logo.png" class="figure-img img-fluid rounded" width="140" height="40"
+                alt="The logo of MarkeTree">
+            <figcaption class="figure-caption">Expect more. Pay less</figcaption>
+        </figure>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav justify-content-end">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">About</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Events</a>
+                </li>
+
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
+                        Feature
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
+                </li> -->
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+
+            <button class="btn btn-outline-dark my-2 my-sm-0 login login" type="submit">Login / Signup</button>
+
         </div>
     </nav>
 
     <!-- Main content for the page (everything other than the navbar)-->
-    <section class="mainContent">
+    <section id="mainContent">
 
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Hello, the world!</h1>
+        <div id="top" style="background-color:#20bf6b; margin-top: -0.5em;" class="jumbotron"
+            data-position="center right">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div id="title" class="col-md-5">
+                        <h2 id="header">MarkeTree</h2>
+                        <h6>The ultimate resource to prepare for the sale events and services. </h6>
+                        <h6>Everyhting you need, in one streamlined platform.</h6>
+                        <a class="btn btn-dark" href=" #" role="button"><i
+                                class="fas fa-balance-scale"></i>&nbsp;&nbsp;Try
+                            MarkeTree Now</a>
+                    </div>
+
+                    <div class="col-md-6 wrapper">
+                        <div class="inner">
+                            <img src="assets/sale.jpg" height="400" width="650" class="rounded float-start" alt="...">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <table class="table table-dark">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
-            </tbody>
-        </table>
 
-        <h5>You have successfully connect to html page by node.js</h5>
-        <img src="assets/logo.png" alt="logo">
-        
+        <div class="background-yellow">
+            <div id="about-us" class="container">
+                <h2 class="what">What is MarkeTree?</h2>
+                <hr>
+                <!-- Description about LingoLand. -->
+                <div class="row">
+
+                    <div class="col-4">
+                        <img src="assets/auth-user.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Trust and Certified Users</h5>
+                        <p>
+                            THE PARAGRAPH ABOUT CERTIFIED USERS
+                        </p>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="assets/used-item.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Dealing Used Products</h5>
+                        <p>
+                            A PARAGRAPH ABOUT DEALING USED ITEMS
+                        </p>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="assets/book.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Over 300 School/Dorm Supplies </h5>
+                        <p>
+                            A PARAGRAPH ABOUT VARIOUS ITEM ON THE PLATFORM
+                        </p>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="assets/auth-user.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Safe Non-Contact Transaction</h5>
+                        <p>
+                            THE PARAGRAPH ABOUT CERTIFIED USERS
+                        </p>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="assets/used-item.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Faster finding in over 300+ goods</h5>
+                        <p>
+                            A PARAGRAPH ABOUT DEALING USED ITEMS
+                        </p>
+                    </div>
+
+                    <div class="col-4">
+                        <img src="assets/book.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Parnership with Union / Club </h5>
+                        <p>
+                            A PARAGRAPH ABOUT VARIOUS ITEM ON THE PLATFORM
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="background-white">
+            <div id="feature" class="container">
+                <h2>Features</h2>
+                <p class="lead">Want to know more about LingoLand? <br> Here are some core features related to
+                    LingoLand
+                </p>
+                <hr>
+                <div class="row">
+                    <div class="col-4">
+                        <h4>Flashcard Making System</h4>
+                        <p>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;You could be highlight terms that they are not familiar
+                            with a
+                            different language through our flashcard making workflow, and be able to have flashcards
+                            auto-filled
+                            and generated for the terms in which they highlight (with
+                            the term being the highlighted word, with the sentence in which it was parsed from), and
+                            the
+                            definition being the translation. These cards will be tested based on a SRS algorithm.
+                        </p>
+                    </div>
+                    <div class="col-8">
+                        <img class="index" src="../resources/images/cardMaker.png">
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+
+                    <div class="col-12">
+                        <h3>Flashcard SRS system</h3>
+                    </div>
+                </div>
+                <div class="row d-flex flex-row align-items-center justify-content-center">
+                    <div class="col-6">
+                        <figure>
+                            <img class="index" src="../resources/images/front.png">
+                        </figure>
+                    </div>
+                    <div class="col-6">
+                        <figure>
+                            <img class="index" src="../resources/images/back.png">
+                        </figure>
+                    </div>
+                </div>
+                <hr>
+                <a type="button" id="but" class="btn btn-info" href="../auth/auth.php">Explore More</a>
+            </div>
+        </div>
     </section>
-    
+
 </body>
 
 

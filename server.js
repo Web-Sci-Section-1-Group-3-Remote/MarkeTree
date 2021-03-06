@@ -24,12 +24,22 @@ app.get('', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/Dashboard/dashboard.html'))
 })
 
-// go to other page by apis
+// About page 
 app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/About/about.html'))
 })
-
-
+// Event Page
+app.get('/event', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/BrowseEvents/browseEvents.html'))
+})
+// Profile Page
+app.get('/profile', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/Profile/profile.html'))
+})
+//Contact us
+app.get('/contactus', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/FileScam/fileScam.html'))
+})
 app.listen(port, () => {
   console.log('listening on *:3000')
 })

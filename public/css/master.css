@@ -1,3 +1,7 @@
+/* * {
+  font-family: Georgia, "Times New Roman", Times, serif;
+} */
+
 .figure-caption {
   color: black;
 }
@@ -41,10 +45,6 @@
   box-shadow: 10px 10px 5px grey;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   font-size: 16px;
 }
@@ -67,6 +67,7 @@ body {
 
 .what {
   text-align: center;
+  margin-top: 2em;
 }
 
 .sub-image {
@@ -80,7 +81,7 @@ body {
   margin-top: 0.3em;
 }
 
-.col-4 {
+.content-block {
   transition: box-shadow 0.4s;
   border-radius: 10px;
   border: 1px solid #ccc;
@@ -88,6 +89,40 @@ body {
   margin-top: 1.3em;
 }
 
-.col-4:hover {
+.content-block:hover {
   box-shadow: 0 0 20px rgb(63, 62, 61);
+}
+
+.brief {
+  text-align: center;
+  font-size: 85%;
+}
+
+.brief2 {
+  text-align: center;
+}
+
+.border-end,
+.border-line {
+  display: inline;
+  margin-right: 2em;
+  font-size: 110%;
+}
+
+.border-line {
+  border-right: 2px black solid;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #fed330;
+}
+
+.mb-4 {
+  margin-top: 1em;
 }

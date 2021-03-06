@@ -14,12 +14,14 @@
 
 <body>
 
-    <nav class="navbar navbar-static-top navbar-expand-xl navbar-light">
-        <figure class="figure">
+    <nav class="navbar navbar-static-top navbar-expand-xl navbar-dark bg-dark">
+        <!-- <figure class="figure">
             <img src="assets/logo.png" class="figure-img img-fluid  " width="140" height="40"
                 alt="The logo of MarkeTree">
             <figcaption class="figure-caption">Expect more. Pay less</figcaption>
-        </figure>
+        </figure> -->
+
+        <div class="navbar-brand"><span class="marke">Marke</span>Tree</div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,7 +51,7 @@
                 </li> -->
             </ul>
 
-            <button class="btn btn-outline-dark my-2 my-sm-0 login login" type="submit">Login / Signup</button>
+            <button class="btn btn-outline-light my-2 my-sm-0 login login" type="submit">Login / Signup</button>
 
         </div>
     </nav>
@@ -65,7 +67,7 @@
                     <div id="title" class="col-md-5">
                         <h2 id="header">MarkeTree</h2>
                         <h6>The ultimate resource to prepare for the sale events and services. </h6>
-                        <h6>Everyhting you need, in one streamlined platform.</h6>
+                        <h6>Everything you need, in one streamlined platform.</h6>
                         <a class="btn btn-dark" href=" #" role="button"><i
                                 class="fas fa-balance-scale"></i>&nbsp;&nbsp;Try
                             MarkeTree Now</a>
@@ -73,7 +75,7 @@
 
                     <div class="col-md-6 wrapper">
                         <div class="inner">
-                            <img src="assets/sale.jpg" height="400" width="650" class="rounded float-start" alt="...">
+                            <img id="sale" src="assets/sale.jpg" class="rounded float-start" alt="...">
                         </div>
                     </div>
                 </div>
@@ -167,10 +169,12 @@
         </div>
 
     </section>
-    <footer class="text-center text-black" style="background-color: #20bf6b;">
+
+
+    <footer class="text-center text-black">
         <!-- Grid container -->
-        <div class="container p-4 pb-0">
-            <section class="mb-4">
+        <div class="container pt-3">
+            <section>
                 <!-- Contact Us -->
                 <p class="border-end"><a href="#">Contact Us</a></p>
                 <p class="border-line"></p>
@@ -181,13 +185,12 @@
                 <p class="border-end"><a href="#">Meet the Team</a></p>
                 <p class="border-line"></p>
                 <!-- Github -->
-                <p class="border-end"><a href="#"><i class="fab fa-github"></i>Github</a></p>
+                <p class="border-end"><a href="#"><i class="fab fa-github"></i> Github</a></p>
             </section>
-
         </div>
 
         <!-- Copyright -->
-        <div class="text-center p-3">
+        <div class="text-center pt-3">
             © 2021 MarkeTree
         </div>
     </footer>

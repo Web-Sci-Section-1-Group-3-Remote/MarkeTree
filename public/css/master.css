@@ -142,8 +142,8 @@ a:hover {
 #listingContent{
   width: 70%;
   margin: auto;
-  margin-top: 1%;
-  margin-bottom: 10%;
+  margin-top: 2%;
+  margin-bottom: 3%;
   background-color: #343a40;
   border-radius: 20px;
   filter: drop-shadow(0 4mm 4mm rgb(1, 29, 4));
@@ -166,13 +166,13 @@ a:hover {
 
 .w-100 {
   width: 100% !important;
-  height: 70vh;
+  height: 80vh;
   object-fit: contain;
 }
 
 #listingText {
   font-size: 120%;
-  height: 70vh;
+  height: 80vh;
   width: 30%;
   float: left;
   padding-left: 1%;

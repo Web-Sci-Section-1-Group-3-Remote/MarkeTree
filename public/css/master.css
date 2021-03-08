@@ -1,3 +1,5 @@
+/* Dashboard */
+
 :root {
   --marketree-green: #20bf6b;
 }
@@ -130,3 +132,5 @@ a:hover {
 .mb-4 {
   margin-top: 1em;
 }
+
+/***************** Done with Dashboard CSS ********************/

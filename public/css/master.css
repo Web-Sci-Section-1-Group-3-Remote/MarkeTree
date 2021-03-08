@@ -114,7 +114,7 @@ body {
 }
 
 footer {
-  background-color: var(--marketree-green);
+  background-color: #258339;
 }
 
 a {
@@ -129,4 +129,58 @@ a:hover {
 
 .mb-4 {
   margin-top: 1em;
+}
+
+/* Listing page */
+
+#listingContent{
+  width: 70%;
+  margin: auto;
+  margin-top: 1%;
+  margin-bottom: 10%;
+  border: 1px solid #0A0A0A;
+  background-color: #343a40;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+#listingCarousel {
+  float: left;
+  width: 70%;
+  background-color: #0A0A0A;
+}
+
+#listingContent h1 {
+  margin-bottom: 1%;
+  color: var(--marketree-green);
+  font-weight: bold;
+  background-color: #343a40;
+  border-bottom: 2px solid var(--marketree-green);
+}
+
+.w-100 {
+  width: 100% !important;
+  height: 70vh;
+  object-fit: contain;
+}
+
+#listingText {
+  font-size: 120%;
+  height: 70vh;
+  width: 30%;
+  float: left;
+  padding-left: 1%;
+  padding-right: 1%;
+  color: #f5f5f5;
+}
+
+#listingDescHeader{
+  display: block;
+  color: var(--marketree-green);
+  font-size: 150%;
+  font-weight: bold;
+}
+
+#listingDesc{
+  padding-bottom: 10%;
 }

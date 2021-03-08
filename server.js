@@ -8,6 +8,7 @@ const path = require('path')
 // Static Files
 app.use(express.static('public'));
 
+
 // folder example
 app.use('/css', express.static(__dirname + './public/css'))
 app.use('/css', express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")))
@@ -39,6 +40,9 @@ app.get('/profile', (req, res) => {
 // Help center
 app.get('/help', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/FileScam/fileScam.html'))
+})
+app.get('/listing', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/Listing/listing.html'))
 })
 app.listen(port, () => {
   console.log('listening on *:3000')

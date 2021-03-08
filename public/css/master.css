@@ -1,9 +1,15 @@
 :root {
   --marketree-green: #20bf6b;
+  scrollbar-width: none !important;
 }
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .figure-caption {
@@ -138,9 +144,9 @@ a:hover {
   margin: auto;
   margin-top: 1%;
   margin-bottom: 10%;
-  border: 1px solid #0A0A0A;
   background-color: #343a40;
   border-radius: 20px;
+  filter: drop-shadow(0 4mm 4mm rgb(1, 29, 4));
   overflow: hidden;
 }
 
@@ -172,6 +178,7 @@ a:hover {
   padding-left: 1%;
   padding-right: 1%;
   color: #f5f5f5;
+  overflow-y:auto;
 }
 
 #listingDescHeader{
@@ -182,5 +189,5 @@ a:hover {
 }
 
 #listingDesc{
-  padding-bottom: 10%;
+  padding-bottom: 5%;
 }

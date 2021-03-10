@@ -23,7 +23,10 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.get('', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/Dashboard/dashboard.html'))
 })
-
+// Home Page
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/Dashboard/dashboard.html'))
+})
 // About page 
 app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/About/about.html'))

@@ -5,15 +5,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarkeTree</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/master.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <h5>You have successfully connect to html page by node.js</h5>
-    <img src="assets/logo.png" alt="logo">
+    <nav class="navbar navbar-static-top navbar-expand-xl navbar-dark bg-dark">
+        <div class="navbar-brand"><span class="marke">Marke</span>Tree</div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/features">Features</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/event">Events</a>
+                </li>
+            </ul>
+
+            <button class="btn btn-outline-light my-2 my-sm-0 login login" type="submit">Login / Signup</button>
+
+        </div>
+    </nav>
+
+    <!-- Main content for the page (everything other than the navbar)-->
+    <section id="mainContent">
+
+        <div id="top" style="background-color:#20bf6b; margin-top: -0.5em;" class="jumbotron"
+            data-position="center right">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div id="title" class="col-md-5">
+                        <h2 id="header">MarkeTree</h2>
+                        <h6>The ultimate Platform </h6>
+                        <h6>Have something to sell? Create and post them right now.</h6>
+                        <a class="btn btn-dark" href=" #" role="button"><i class="fas fa-hammer"></i>&nbsp;&nbsp;Create
+                            Your Lists Now</a>
+                    </div>
+
+                    <div class="col-md-6 wrapper">
+                        <div class="inner">
+                            <img id="sale" src="assets/createListing.jpg" class="rounded float-start" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="creating" class="container">
+            <h2 class="what">Creating Process</h2>
+            <hr>
+
+            <form class="row g-3">
+                <div class="col-6">
+                    <label for="inputName" class="form-label">Name</label>
+                    <input type="name" class="form-control" id="inputName" required>
+                </div>
+                <div class="col-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-8">
+                    <label for="input" class="form-label">Item</label>
+                    <input type="text" class="form-control" id="inputItem" placeholder="FOCS Textbook" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">Item Catalog</label>
+                    <select id="inputState" type="text" class="form-select form-control" required>
+                        <option selected>Choose...</option>
+                        <option>School Supplies</option>
+                        <option>Dorm Supplies</option>
+                        <option>Mini Home Appliances</option>
+                        <option>Other..</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="exampleFormControlTextarea1" class="form-label">Item Description</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                        placeholder="Discuss your item condition for faster sold..." rows="3"></textarea>
+                </div>
+                <div class="col-6">
+                    <label for="formFileMultiple" class="form-label">Images Upload</label>
+                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                </div>
+
+                <div class="col-6">
+                    <label for="validationDefaultUsername" class="form-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text" id="inputGroupPrepend2">$</span>
+                        <input type="text" class="form-control" id="Input" aria-describedby="inputGroupPrepend2"
+                            required>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary create">Submit</button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </section>
+
+
+    <footer class="text-center text-black">
+        <!-- Grid container -->
+        <div class="container pt-3">
+            <section>
+                <!-- Contact Us -->
+                <p class="border-end"><a href="#">Contact Us</a></p>
+                <p class="border-line"></p>
+                <!-- FAQ -->
+                <p class="border-end"><a href="#">FAQ</a></p>
+                <p class="border-line"></p>
+                <!-- Meet the team -->
+                <p class="border-end"><a href="#">Meet the Team</a></p>
+                <p class="border-line"></p>
+                <!-- Github -->
+                <p class="border-end"><a href="#"><i class="fab fa-github"></i> Github</a></p>
+            </section>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center pt-3">
+            © 2021 MarkeTree
+        </div>
+    </footer>
 
 </body>
+
+
 
 </html>

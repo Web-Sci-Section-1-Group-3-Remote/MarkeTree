@@ -43,6 +43,13 @@ app.get('/profile', (req, res) => {
 app.get('/help', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/FileScam/fileScam.html'))
 })
+
+//Create Listing API
+app.get('/create', (req, res) => {
+  res.sendFile(path.join(__dirname, './frontend/CreateListing/createListing.html'))
+})
+
+
 app.listen(port, () => {
   console.log('listening on *:3000')
 })

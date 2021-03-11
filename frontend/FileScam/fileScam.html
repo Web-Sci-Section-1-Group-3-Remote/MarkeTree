@@ -7,13 +7,194 @@
     <title>MarkeTree</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="css/master.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <h5>You have successfully connect to html page by node.js</h5>
-    <img src="assets/logo.png" alt="logo">
+    <nav class="navbar navbar-static-top navbar-expand-xl navbar-dark bg-dark">
+        <!-- <figure class="figure">
+            <img src="assets/logo.png" class="figure-img img-fluid  " width="140" height="40"
+                alt="The logo of MarkeTree">
+            <figcaption class="figure-caption">Expect more. Pay less</figcaption>
+        </figure> -->
 
+        <div class="navbar-brand"><span class="marke">Marke</span>Tree</div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+            <ul class="navbar-nav justify-content-end">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/creat">Features</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/events">Events</a>
+                </li>
+
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Feature
+                    </a>
+                </li> -->
+            </ul>
+
+            <button class="btn btn-outline-light my-2 my-sm-0 login login" type="submit">Login / Signup</button>
+
+        </div>
+    </nav>
+
+    <section id="mainContent">
+
+        <div id="top" style="background-color:#20bf6b; margin-top: -0.5em;" class="jumbotron"
+            data-position="center right">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div id="title" class="col-md-5">
+                        <h2 id="header">MarkeTree</h2>
+                        <h6>You've Got Questions</h6>
+                        <h6>We've got answers</h6>
+                        <a class="btn btn-dark" href="#faq" role="button">&#10068;&nbsp; Find Your Answers</a>
+                    </div>
+
+                    <div class="col-md-6 wrapper">
+                        <div class="inner">
+                            <img id="sale" src="assets/help.jpg" class="rounded float-start" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="background-yellow">
+            <div id="faq" class="container">
+                <h2 class="what">FAQ - Frequent Ask Questions</h2>
+                <hr>
+
+                <div class="row">
+
+                    <div class="col-4 content-block">
+                        <img src="assets/auth-user.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">What makes us Different</h5>
+                        <p class="brief">
+                            Unlike other marketplace websites, we offered member-only platform that gives you full
+                            experience other platform has to offered,
+                            at the same time shield you from scam and other malicious activities. We also provides event
+                            information from the campus and other
+                            authorized local organizations, so you can always look forward for interesting events.
+                        </p>
+                    </div>
+
+                    <div class="col-4 content-block">
+                        <img src="assets/used-item.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">Payments</h5>
+                        <p class="brief">
+                            There are multiple ways to pay your seller, through our website or other methods. Seller
+                            will have to specify which type of payment s/he
+                            accpets during listing creation. The seller can either request a cash or other types of
+                            digitalize transaction.
+                            If you decide to pay through the website, our website supports Venmo as third party payment
+                            service.
+                            <b>COVID 19 Notice:</b>
+                            We highly recomment digital transaction during COVID 19 Pandemic.
+                        </p>
+                    </div>
+
+                    <div class="col-4 content-block">
+                        <img src="assets/book.jpg" class="sub-image" height="80" width="80" alt="Certified Users">
+                        <h5 class="sub-section">How to Join</h5>
+                        <p class="brief">
+                            As a website that aims to prevent scam and other misconduct, we implemented strict rules on
+                            our membership as followed:</br>
+                            </br>
+                            If you are part of the RPI Community, you can join our website through your RCS
+                            account.</br>
+                            </br>
+                            If you are NOT part of the RPI Community, you can create account through existing RPI
+                            student's referral code.</br>
+                            </br>
+                            If you are a local organization, you can contact us to request an offical organization
+                            account.</br>
+
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="background-yellow">
+            <div id="contactus" class="container">
+                <h2 class="what">Contact Us</h2>
+                <hr>
+
+                <form>
+                    <div class="form-group">
+                        <label for="InputEmail">Email address</label>
+                        <input type="email" class="form-control" id="InputEmail"
+                            placeholder="Please enter your email...">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputReason">What can we help you with</label>
+                        <input type="reason" class="form-control" id="InputReason" aria-describedby="reasonHelp"
+                            placeholder="You need help with...">
+                        <small id="reasonHelp" class="form-text text-muted">For example, Potential Scam, Account
+                            Referral and etc.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputMessage">Message</label>
+                        <input type="message" class="form-control input-lg" id="InputMessage"
+                            placeholder="Type your message here..." style="height:125px;">
+                    </div>
+
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-clear">Clear</button>
+                    </div>
+                    </br>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer class="text-center text-black">
+        <!-- Grid container -->
+        <div class="container pt-3">
+            <section>
+                <!-- Contact Us -->
+                <p class="border-end"><a href="#">Contact Us</a></p>
+                <p class="border-line"></p>
+                <!-- FAQ -->
+                <p class="border-end"><a href="/help">FAQ</a></p>
+                <p class="border-line"></p>
+                <!-- Meet the team -->
+                <p class="border-end"><a href="/about">Meet the Team</a></p>
+                <p class="border-line"></p>
+                <!-- Github -->
+                <p class="border-end"><a href="#"><i class="fab fa-github"></i> Github</a></p>
+            </section>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center pt-3">
+            © 2021 MarkeTree
+        </div>
+    </footer>
 </body>
 
 </html>

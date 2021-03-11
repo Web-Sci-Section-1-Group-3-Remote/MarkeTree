@@ -1,3 +1,5 @@
+/* Dashboard */
+
 :root {
   --marketree-green: #20bf6b;
   scrollbar-width: none !important;
@@ -121,6 +123,9 @@ body {
 
 footer {
   background-color: #258339;
+=======
+  background-color: var(--marketree-green);
+  margin-top: 1.4em;
 }
 
 a {
@@ -190,4 +195,15 @@ a:hover {
 
 #listingDesc{
   padding-bottom: 5%;
+}
+
+/***************** Done with Dashboard CSS ********************/
+
+/***************** CreateListing Page ************************/
+.create {
+  margin-top: 0.5em;
+}
+
+#formFileMultiple {
+  padding: 3px;
 }

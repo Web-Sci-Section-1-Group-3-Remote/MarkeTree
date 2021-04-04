@@ -1,9 +1,77 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const { MongoClient } = require('mongodb');
+
+const app = express();
+const port = 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+
+let connected = false;
+const client = new MongoClient(
+  'mongodb+srv://dbUser:MarkeTreePassword@marketree.ridw2.mongodb.net/MarkeTree?retryWrites=true&w=majority',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+
+async function ensureConnection() {
+  if (connected) return;
+  try {
+    await client.connect();
+    connected = true;
+  } catch (e) {
+    console.error('unable to connect to MongoDB', e);
+  }
+}
+
+app.post('/api/verify-user', async (req, res) => {
+  // username-password for now
+  let username = req.body.username;
+  let password = req.body.password;
+  // assumed strings, not null
+
+  let userId = null;
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Users');
+    let document = await collection.findOne({
+      username: username,
+      password: password
+    });
+    userId = document.user_id;
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+  if (userId == null) {
+    res.json({ err: 'bad username/password combination' })
+  } else {
+    res.json({ userId: userId });
+  }
+});
+
+app.get('/api/listings', async (req, res) => {
+  let listings = null;
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Listings');
+    let document = collection.find({});
+    listings = await document.toArray();
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+  if (listings == null) {
+    res.json({ err: 'Unable to search listings' })
+  } else {
+    res.json({ listings: listings });
+  }5
+});
 
 
-const path = require('path')
 // app.use(express.static(__dirname + '/frontend'));
 // Static Files
 app.use(express.static('public'));

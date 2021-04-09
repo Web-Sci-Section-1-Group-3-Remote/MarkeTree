@@ -147,9 +147,9 @@ a:hover {
 /******************************************** Listing page ******************************************/
 
 #listingContent {
-  width: 90%;
+  width: 80%;
   margin: auto;
-  margin-top: 4%;
+  margin-top: 2%;
   margin-bottom: 3%;
   background-color: #343a40;
   border-radius: 20px;

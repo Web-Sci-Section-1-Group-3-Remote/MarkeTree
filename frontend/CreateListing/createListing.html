@@ -10,6 +10,7 @@
     <!-- <link rel="stylesheet" href="./css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="css/master.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="javascript/createListing.js" defer></script>
 </head>
 
 <body>
@@ -79,8 +80,8 @@
                     <input type="name" class="form-control" id="inputName" required>
                 </div>
                 <div class="col-6">
-                    <label for="inputEmail4" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4">
+                    <label for="inputEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail">
                 </div>
                 <div class="col-md-8">
                     <label for="input" class="form-label">Item</label>
@@ -88,36 +89,49 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label for="inputState" class="form-label">Item Catalog</label>
-                    <select id="inputState" type="text" class="form-select form-control" required>
-                        <option selected>Choose...</option>
+                    <label for="inputCategory" class="form-label">Item Catalog</label>
+                    <select id="inputCategory" type="text" class="form-select form-control" required>
                         <option>School Supplies</option>
                         <option>Dorm Supplies</option>
                         <option>Mini Home Appliances</option>
-                        <option>Other..</option>
+                        <option>COVID-19 Supplies</option>
+                        <option>Clothes</option>
+                        <option>Event</option>
+                        <option>Sporting</option>
+                        <option>Games</option>
+                        <option>Computers/Electronics</option>
+                        <option>Tools</option>
+                        <option>Autos</option>
+                        <option>Apartments/Renting</option>
+                        <option>Shoes</option>
+                        <option>Services</option>
+                        <option>Pets</option>
+                        <option>Phones</option>
+                        <option>Bicycles</option>
+                        <option>Makeup</option>
                     </select>
                 </div>
                 <div class="col-12">
-                    <label for="exampleFormControlTextarea1" class="form-label">Item Description</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1"
+                    <label for="inputDescription" class="form-label">Item Description</label>
+                    <textarea class="form-control" id="inputDescription"
                         placeholder="Discuss your item condition for faster sold..." rows="3"></textarea>
                 </div>
                 <div class="col-6">
-                    <label for="formFileMultiple" class="form-label">Images Upload</label>
-                    <input class="form-control" type="file" id="formFileMultiple" multiple>
+                    <label for="inputImages" class="form-label">Images Upload</label>
+                    <input class="form-control" type="file" id="inputImages" multiple>
                 </div>
 
                 <div class="col-6">
-                    <label for="validationDefaultUsername" class="form-label">Price</label>
+                    <label for="inputPrice" class="form-label">Price</label>
                     <div class="input-group">
                         <span class="input-group-text" id="inputGroupPrepend2">$</span>
-                        <input type="text" class="form-control" id="Input" aria-describedby="inputGroupPrepend2"
+                        <input type="text" class="form-control" id="inputPrice" aria-describedby="inputGroupPrepend2"
                             required>
                     </div>
                 </div>
 
                 <div class="col-12 text-center">
-                    <button type="submit" class="btn btn-primary create">Submit</button>
+                    <button type="submit" class="btn btn-primary create" onclick="createListing()">Submit</button>
                 </div>
             </form>
 

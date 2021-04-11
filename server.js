@@ -122,6 +122,7 @@ app.post('/post-listing', async (req, res) => {
   console.log(message);
   let username = message.username;
   let email = message.email;
+  let zip = message.zip;
   let item = message.item;
   let category = message.category;
   let description = message.description;
@@ -138,6 +139,7 @@ app.post('/post-listing', async (req, res) => {
     let document = await collection.insertOne({
       listing_id: id,
       price: price,
+      location: zip,
       name: item,
       description: description,
       category: category,

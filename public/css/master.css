@@ -8,6 +8,7 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -129,6 +130,9 @@ body {
 footer {
   background-color: var(--marketree-green);
   margin-top: 1.4em;
+  position: relative;
+  width: 100vw;
+  bottom: 0;
 }
 
 a {
@@ -170,9 +174,9 @@ a:hover {
 
 .w-100 {
   /* width: 100% !important; */
-  height: var(--imageHeight);
-  max-height: 50vh;
-  object-fit: cover;
+  /* height: var(--imageHeight); */
+  height: 350px;
+  object-fit: contain;
 }
 
 #listingText {

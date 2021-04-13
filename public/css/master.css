@@ -2,11 +2,13 @@
 
 :root {
   --marketree-green: #20bf6b;
+  --imageHeight: 0px;
   scrollbar-width: none !important;
 }
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
@@ -128,6 +130,9 @@ body {
 footer {
   background-color: var(--marketree-green);
   margin-top: 1.4em;
+  position: relative;
+  width: 100vw;
+  bottom: 0;
 }
 
 a {
@@ -147,44 +152,42 @@ a:hover {
 /******************************************** Listing page ******************************************/
 
 #listingContent {
-  width: 70%;
+  width: 100%;
   margin: auto;
-  margin-top: 2%;
-  margin-bottom: 3%;
-  background-color: #343a40;
-  border-radius: 20px;
-  filter: drop-shadow(0 4mm 4mm rgb(1, 29, 4));
   overflow: hidden;
 }
 
 #listingCarousel {
-  float: left;
-  width: 70%;
+  /* float: left; */
+  width: 100%;
   background-color: #0a0a0a;
+  margin-bottom: 1%;
 }
 
 #listingContent h1 {
+  margin-top: 1%;
   margin-bottom: 1%;
   color: var(--marketree-green);
   font-weight: bold;
-  background-color: #343a40;
-  border-bottom: 2px solid var(--marketree-green);
+  padding-left: 2%;
 }
 
 .w-100 {
-  width: 100% !important;
-  height: 80vh;
+  /* width: 100% !important; */
+  /* height: var(--imageHeight); */
+  height: 350px;
   object-fit: contain;
 }
 
 #listingText {
   font-size: 120%;
-  height: 80vh;
-  width: 30%;
-  float: left;
-  padding-left: 1%;
+  height: auto;
+  width: 100%;
+  /*float: left;*/
+  padding-left: 2%;
   padding-right: 1%;
-  color: #f5f5f5;
+  color: #000000;
+  /* background-color: #343a40; */
   overflow-y: auto;
 }
 
@@ -196,7 +199,11 @@ a:hover {
 }
 
 #listingDesc {
-  padding-bottom: 5%;
+  padding-bottom: 1%;
+}
+
+#paymentButtons{
+  margin-bottom: 15px;
 }
 
 /***************** Done with Dashboard CSS ********************/

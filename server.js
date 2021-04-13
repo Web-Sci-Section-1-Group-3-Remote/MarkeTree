@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const uuidv4 = require('uuid').v4;
 
 const app = express();
-const port = 3000;
+const port = 3030;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -188,7 +188,7 @@ app.get('/api/listings', async (req, res) => {
     res.json({ err: 'Unable to search listings' })
   } else {
     res.json({ listings: listings });
-  }5
+  } 5
 });
 
 
@@ -199,6 +199,7 @@ app.use(express.static('public'));
 
 // folder example
 app.use('/css', express.static(__dirname + './public/css'))
+app.use('/js', express.static(__dirname + './public/javascript'))
 app.use('/css', express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")))
 
 app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
@@ -258,7 +259,53 @@ app.get('/create', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/CreateListing/createListing.html'))
 })
 
+
+
+app.post('/post-listing', async (req, res) => {
+  let message = req.body.listingData;
+  console.log(message);
+  let username = message.username;
+  let email = message.email;
+  let zip = message.zip;
+  let item = message.item;
+  let category = message.category;
+  let description = message.description;
+  let price = message.price;
+
+  let time = Math.floor(Math.random() * 1000) + 1;
+
+  await ensureConnection();
+
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Listings');
+    let id = await collection.countDocuments();
+    let document = await collection.insertOne({
+      listing_id: id,
+      price: price,
+      location: zip,
+      name: item,
+      description: description,
+      category: category,
+      seller: 1,
+      buyer: null,
+      time: time,
+      images: null
+    });
+    userId = document.user_id;
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+
+})
+
+
+
+
+
+
+
 // Listen to the port 3000
 app.listen(port, () => {
-  console.log('listening on *:3000')
+  console.log('listening on *:3030')
 })

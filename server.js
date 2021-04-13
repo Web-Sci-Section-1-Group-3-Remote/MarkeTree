@@ -1,7 +1,9 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const { MongoClient } = require('mongodb');
+const uuidv4 = require('uuid').v4;
 
 const app = express();
 const port = 3000;
@@ -27,7 +29,62 @@ async function ensureConnection() {
   }
 }
 
-app.post('/api/verify-user', async (req, res) => {
+// with a username and password
+app.post('/api/create-user', async (req, res) => {
+  let username = req.body.username;
+  let password = req.body.password;
+
+  if (username == null || username == '' || password == null || password == '') {
+    res.json('bad username/password characters');
+    return;
+  }
+
+  let saltBuff = crypto.randomBytes(128);
+  let salt = saltBuff.toString('hex');
+  let saltedPass = password + salt;
+  
+  let hasher = crypto.createHash('sha256');
+  hasher.update(saltedPass);
+  let hashedPass = hasher.digest('hex');
+
+  let cookieBuff = crypto.randomBytes(128);
+  let cookie = cookieBuff.toString('hex');
+
+  let cookieSaltBuff = crypto.randomBytes(128);
+  let cookieSalt = cookieSaltBuff.toString('hex');
+
+  let saltedCookie = cookie + cookieSalt;
+
+  let hasherCookie = crypto.createHash('sha256');
+  hasherCookie.update(saltedCookie);
+  
+  let cookieHash = hasherCookie.digest('hex');
+
+  let user = {
+    user_id: uuidv4(),
+    username: username,
+    password_hash: hashedPass,
+    password_salt: salt,
+    cookie_hash: cookieHash,
+    cookie_salt: cookieSalt,
+  }
+
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Users');
+    await collection.insertOne(user);
+  } catch (e) {
+    console.error('Unable to search database', e);
+    res.json({ err: 'unable to add user' });
+    return;
+  }
+
+  res.json({ cookie: cookie });
+});
+
+// With a username and a password
+app.post('/api/authorize-user', async (req, res) => {
   // username-password for now
   let username = req.body.username;
   let password = req.body.password;
@@ -39,18 +96,81 @@ app.post('/api/verify-user', async (req, res) => {
     let db = client.db('MarkeTree');
     let collection = db.collection('Users');
     let document = await collection.findOne({
-      username: username,
-      password: password
+      username: username
     });
     userId = document.user_id;
   } catch (e) {
     console.error('Unable to search database', e);
+    res.json({ err: 'unable to authorize user' });
+    return;
   }
+
   if (userId == null) {
-    res.json({ err: 'bad username/password combination' })
-  } else {
-    res.json({ userId: userId });
+    res.json({ err: 'bad username/password combination' });
+    return;
   }
+
+  // create a cookie for the user
+  let cookieBuff = crypto.randomBytes(128);
+  let cookie = cookieBuff.toString('hex');
+
+  let cookieSaltBuff = crypto.randomBytes(128);
+  let cookieSalt = cookieSaltBuff.toString('hex');
+
+  let saltedCookie = cookie + cookieSalt;
+
+  let hasherCookie = crypto.createHash('sha256');
+  hasherCookie.update(saltedCookie);
+  
+  let cookieHash = hasherCookie.digest('hex');
+
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Users');
+    await collection.updateOne({ user_id: userId }, { $set: { cookie_hash: cookieHash, cookie_salt: cookieSalt } });
+  } catch (e) {
+    console.error('this is really bad...', e);
+    res.json({ err: 'unable to authorize user' });
+    return;
+  }
+
+  res.json({ cookie: cookie });
+});
+
+// With a cookie token
+app.post('/api/verify-user', async (req, res) => {
+  let cookie = req.body.cookie;
+
+  let allUsers = null;
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Users');
+    let cursor = collection.find({}); // high effort, high quality, high efficiency code here.
+    allUsers = await cursor.toArray();
+  } catch (e) {
+    console.error('this pretty bad...', e);
+    res.json({ err: 'unable to verify user' });
+    return;
+  }
+
+  for (user of allUsers) {
+    let cookieHash = user.cookie_hash;
+    let cookieSalt = user.cookie_salt;
+
+    let hasher = crypto.createHash('sha256');
+    hasher.update(cookie + cookieSalt);
+    
+    let foundCookieHash = hasher.digest('hex');
+
+    if (foundCookieHash == cookieHash) {
+      res.json({ success: true });
+      return;
+    }
+  }
+  console.log('bad cookie: ', cookie);
+  res.json({ err: 'unable to verify user' });
 });
 
 app.get('/api/listings', async (req, res) => {

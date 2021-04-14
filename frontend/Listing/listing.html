@@ -123,8 +123,9 @@
 
             <section id="paymentButtons">
 
-                <button type="button" class="btn btn-success">PayPal</button>
-                <button type="button" class="btn btn-success">Venmo</button>
+                <section id="paypalbutton"></section>
+                <script src="https://www.paypal.com/sdk/js?client-id=AT0bPbG7uXfOJIAmIpRyM0A5YnLVP2fKhm_Yk3mHxKjez8K6phAGdiwsXaT-lP4sDRfKEFPD5bO6Ye0O"></script>
+                <script>paypal.Buttons().render('#paypalbutton');</script>
 
             </section>
         </div>

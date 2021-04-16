@@ -7,15 +7,10 @@ currently being supported with security updates.
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| .1.1   | :white_check_mark: |
+| .0.1   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+In order to report a vulnerability, we have a contact page on MarkeTree where you can email us if there are any issue you have with MarkeTree. Just put in your email, and type
+in a message explaining the vulnerability found, and the details of what is being exposed. We request full disclosure for these issues. You can post about issues anywhere.

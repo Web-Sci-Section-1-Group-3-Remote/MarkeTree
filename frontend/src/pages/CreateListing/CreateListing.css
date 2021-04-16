@@ -1,0 +1,17 @@
+.create {
+  margin-top: 0.8em;
+}
+
+#formFileMultiple {
+  padding: 3px;
+}
+
+.form-label {
+  margin-bottom: -0.1em;
+  margin-top: 0.6em;
+}
+
+.trying {
+  text-transform: capitalize;
+  margin-left: -0.1em;
+}

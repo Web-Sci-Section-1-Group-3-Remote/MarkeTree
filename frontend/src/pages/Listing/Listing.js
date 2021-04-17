@@ -1,153 +1,147 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+import Product from '../../components/Product/Product';
+import buttonMaker from '../../components/Product/Product';
 import './Listing.css';
 
 import bike1 from "../../images/images/bike1.jpg";
 import bike2 from "../../images/images/bike2.jpg";
 import bike3 from "../../images/images/bike3.jpg";
 
-function Product({ product }) {
-    const [paidFor, setPaidFor] = useState(false);
-    const [error, setError] = useState(null);
-    const paypalRef = useRef();
-  
-    useEffect(() => {
-      window.paypal
-        .Buttons({
-          createOrder: (data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  description: product.description,
-                  amount: {
-                    currency_code: 'USD',
-                    value: product.price,
-                  },
-                },
-              ],
-            });
-          },
-          onApprove: async (data, actions) => {
-            const order = await actions.order.capture();
-            setPaidFor(true);
-            console.log(order);
-          },
-          onError: err => {
-            setError(err);
-            console.error(err);
-          },
-        })
-        .render(paypalRef.current);
-    }, [product.description, product.price]);
-  
-    if (paidFor) {
-      return (
-        <div>
-          <h1>Congrats, you just bought {product.name}!</h1>
-          <img alt={product.description}/>
-        </div>
-      );
-    }
-  
+export default class Listing extends React.Component {
+
+  product = {
+    price: 23.17,
+    name: 'no thanks',
+    description: 'alksdjflskdafjsfaksdjfklasdjfaslkdfjaskldfjaklsdfasdf'
+  }
+
+  componentDidMount() {
+    window.addEventListener('load', () => { this.getListingInfo() });
+  }
+
+
+  render() {
+    console.log("PRODUCT1: ", this.product);
     return (
       <div>
-        {error && <div>Uh oh, an error occurred! {error.message}</div>}
-        <h1>
-          {product.description} for ${product.price}
-        </h1>
-        <img alt={product.description} src={product.image} width="200" />
-        <div ref={paypalRef} />
-      </div>
-    );
+        <HeaderWithLogin />
+        <section id="listingContent">
+          <h1 id="name">Electric Bike</h1>
+
+          <div id="listingCarousel" className="carousel slide" data-ride="carousel">
+            <ol className="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <img className="carousel-image d-block w-100" src={bike1} alt="First slide"></img>
+              </div>
+              <div className="carousel-item">
+                <img className="carousel-image d-block w-100" src={bike2} alt="Second slide"></img>
+              </div>
+              <div className="carousel-item">
+                <img className="carousel-image d-block w-100" src={bike3} alt="Third slide"></img>
+              </div>
+            </div>
+            <a className="carousel-control-prev" href="#listingCarousel" role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href="#listingCarousel" role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+
+          <div id="listingText">
+            <section className="listingDescHeader">
+              Seller's Description
+                        </section>
+
+            <section id="Desc" className="listingDesc">
+              I am selling my electric bike. Been using it for years, ready to give it a new home. Model is
+              RAD Power v100.
+                         </section>
+
+            <section className="listingDescHeader">
+              Location
+                         </section>
+
+            <section id="locat" className="listingDesc">
+              7mi - Troy, NY
+                        </section>
+
+            <section className="listingDescHeader">
+              Price
+              </section>
+
+            <section id="price" className="listingDesc">
+              Looking to sell for $1150 OBO
+                        </section>
+
+            <section id="paymentButtons">
+              {/* <Product product={this.product} /> */}
+              <Product />
+            </section>
+          </div>
+
+        </section>
+      </div >
+    )
   }
 
-  function Listing() {
-    const product = {
-      price: 777.77,
-      name: 'comfy chair',
-      description: 'fancy chair, like new',
+
+  displayData(data) {
+
+    console.log("displaying data");
+
+    this.product = {
+      price: data['price'],
+      name: data['name'],
+      description: data['description']
     };
-  
-    return (
-      <div className="App">
-        <Product product={product} />
-      </div>
-    );
+
+    // this.forceUpdate();
+    // The listing associate with each item is now working.
+    let name = document.querySelector('#name');
+    name.innerHTML = data['name'];
+
+    let desc = document.querySelector('#Desc');
+    desc.innerHTML = data['description'];
+
+    let locat = document.querySelector('#locat');
+    locat.innerHTML = data['location'];
+
+    let price = document.querySelector('#price');
+    price.innerHTML = data['price'];
+
+    let p = data['price'];
+    let n = data['name'];
+    let d = data['description'];
+
+    buttonMaker(p, n, d);
+    // console.log(data['price'])
+    // console.log(button(data['price'], data['name'], data['description']));
   }
-  
-  export default Listing;
 
-// export default class Listing extends React.Component {
-//     render() {
-//         return (
-//             <div>
-//                 <HeaderWithLogin />
-//                 <section id="listingContent">
-//                     <h1>Electric Bike</h1>
+  async getListingInfo() {
+    console.log("fetching listing info");
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let id = urlParams.get("id");
 
-//                     <div id="listingCarousel" className="carousel slide" data-ride="carousel">
-//                         <ol className="carousel-indicators">
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-//                             <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-//                         </ol>
-//                         <div className="carousel-inner">
-//                             <div className="carousel-item active">
-//                                 <img className="carousel-image d-block w-100" src={bike1} alt="First slide"></img>
-//                             </div>
-//                             <div className="carousel-item">
-//                                 <img className="carousel-image d-block w-100" src={bike2} alt="Second slide"></img>
-//                             </div>
-//                             <div className="carousel-item">
-//                                 <img className="carousel-image d-block w-100" src={bike3} alt="Third slide"></img>
-//                             </div>
-//                         </div>
-//                         <a className="carousel-control-prev" href="#listingCarousel" role="button" data-slide="prev">
-//                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-//                             <span className="sr-only">Previous</span>
-//                         </a>
-//                         <a className="carousel-control-next" href="#listingCarousel" role="button" data-slide="next">
-//                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
-//                             <span className="sr-only">Next</span>
-//                         </a>
-//                     </div>
+    console.log(id);
 
-//                     <div id="listingText">
-//                         <section id="listingDescHeader">
-//                             Seller's Description
-//                         </section>
-
-//                         <section id="listingDesc">
-//                             I am selling my electric bike. Been using it for years, ready to give it a new home. Model is
-//                             RAD Power v100.
-//                          </section>
-
-//                         <section id="listingDescHeader">
-//                             Location
-//                          </section>
-
-//                         <section id="listingDesc">
-//                             7mi - Troy, NY
-//                         </section>
-
-//                         <section id="listingDescHeader">
-//                             Price
-//                          </section>
-
-//                         <section id="listingDesc">
-//                             Looking to sell for $1150 OBO
-//                         </section>
-
-//                         <section id="paymentButtons">
-
-//                         <section id="paypalbutton"></section>
-//                         <script>paypal.Buttons().render('#paypalbutton');</script>
-
-//                         </section>
-//                     </div>
-
-//                 </section>
-//             </div>
-//         )
-//     }
-// }
+    fetch('http://localhost:3030/get-listing/' + id, {
+      method: 'GET',
+      mode: 'cors'
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.displayData(data);
+      });
+  }
+}

@@ -118,7 +118,59 @@ export default class CreateListing extends React.Component {
 
         )
     }
-    createListing() {
+    async createListing() {
+        let username = document.getElementById("inputName").value;
+        let email = document.getElementById("inputEmail").value;
+        let zip = document.getElementById("inputZip").value;
+        let item = document.getElementById("inputItem").value;
 
+        let category = document.getElementById("inputCategory").value;
+
+        let description = document.getElementById("inputDescription").value;
+        let price = document.getElementById("inputPrice").value;
+
+        let imagesInput = document.getElementById("inputImages");
+        let images = [];
+        if (imagesInput.files) {
+            for (let i = 0; i < imagesInput.files.length; ++i) {
+                let file = imagesInput.files[i];
+                await new Promise((resolve) => {
+                    let reader = new FileReader();
+                    reader.addEventListener('load', () => {
+                        let data = reader.result;
+                        images.push(data);
+                        resolve();
+                    });
+                    reader.readAsDataURL(file);
+                });
+            }
+        } else {
+            console.log('no files', imagesInput);
+        }
+
+        const listingData = {
+            username: username,
+            email: email,
+            zip: zip,
+            item: item,
+            category: category,
+            description: description,
+            price: price,
+            images: images
+        }
+        console.log(listingData);
+        alert('yay');
+
+        fetch("http://localhost:3030/post-listing", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                listingData
+            }),
+        })
+            .then(response => response.json())
+            .then(data => { })
     }
 }

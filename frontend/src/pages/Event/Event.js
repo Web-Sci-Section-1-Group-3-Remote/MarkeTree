@@ -1,10 +1,10 @@
 import React from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin'
-import "./BrowseEvent.css";
+import "./Event.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 
-export default class BrowseEvent extends React.Component {
+export default class Event extends React.Component {
     render() {
         return (
             <div>

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Footer from './components/Footer/Footer'
 import Homepage from './pages/Homepage/Homepage'
 import About from './pages/About/About'
-import BrowseEvent from './pages/BrowseEvent/BrowseEvent'
+import Event from './pages/Event/Event'
 import Login from './pages/Login/Login'
 import Signup from './pages/Signup/Signup';
 import Help from './pages/Help/Help'
@@ -21,7 +21,7 @@ class App extends React.Component {
         <div>
           <Route exact path='/' component={Homepage} />
           <Route path='/about' component={About} />
-          <Route path='/event' component={BrowseEvent} />
+          <Route path='/event' component={Event} />
           <Route path='/login' component={Login} />
           <Route path='/Signup' component={Signup} />
           <Route path='/help' component={Help} />

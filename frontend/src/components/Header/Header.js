@@ -29,7 +29,8 @@ export default class Header extends React.Component {
                         </ul>
 
                         <div className="btnlogin">
-                            <button className="btn my-2 my-sm-0 login login" type="submit"><a href="/login" className="btnlogin">Login / Signup</a></button>
+                            <button className="btn my-2 my-sm-0 login login" type="submit"><a href="/login" className="btnlogin">Login</a></button>
+                            <button className="btn my-2 my-sm-0 login login" type="submit"><a href="/signup" className="btnlogin">Sign up</a></button>
                         </div>
 
                     </div>

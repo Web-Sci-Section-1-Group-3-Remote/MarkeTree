@@ -7,9 +7,10 @@ import Event from './pages/Event/Event'
 import Login from './pages/Login/Login'
 import Signup from './pages/Signup/Signup';
 import Help from './pages/Help/Help'
-import CreateLising from './pages/CreateListing/CreateListing';
+import CreateListing from './pages/CreateListing/CreateListing';
 import BrowseListing from './pages/BrowseListing/BrowseListing';
 import Listing from './pages/Listing/Listing';
+import CreateEvent from './pages/CreateEvent/CreateEvent';
 
 import './App.css';
 
@@ -25,9 +26,10 @@ class App extends React.Component {
           <Route path='/login' component={Login} />
           <Route path='/Signup' component={Signup} />
           <Route path='/help' component={Help} />
-          <Route path='/create' component={CreateLising} />
+          <Route path='/create' component={CreateListing} />
           <Route path='/browseListing' component={BrowseListing} />
           <Route path='/listing' component={Listing} />
+          <Route path='/createEvent' component={CreateEvent} />
 
         </div>
         <Footer />

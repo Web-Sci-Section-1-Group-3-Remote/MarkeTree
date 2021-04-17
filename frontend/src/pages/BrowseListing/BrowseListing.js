@@ -3,13 +3,17 @@ import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import { Link } from 'react-router-dom';
 import './BrowseListing.css';
 
-import bike1 from "../../images/images/bike1.jpg";
-import bike2 from "../../images/images/bike2.jpg";
-import bike3 from "../../images/images/bike3.jpg";
-import sofa from "../../images/images/sofa.jpg";
-import textbook from "../../images/images/textbook.jpg";
+// import bike1 from "../../images/images/bike1.jpg";
+// import bike2 from "../../images/images/bike2.jpg";
+// import bike3 from "../../images/images/bike3.jpg";
+// import sofa from "../../images/images/sofa.jpg";
+// import textbook from "../../images/images/textbook.jpg";
 
 export default class BrowseListing extends React.Component {
+    info = [];
+    componentDidMount() {
+        window.addEventListener('load', this.browseListing());
+    }
     render() {
         return (
             <div>
@@ -23,7 +27,7 @@ export default class BrowseListing extends React.Component {
 
                             <ul className="list-unstyled components">
                                 <p>Dummy Heading</p>
-                                <li className="active">
+                                <li className="active sidesM">
                                     <Link to="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
                                         className="dropdown-toggle">Home</Link>
                                     <ul className="collapse list-unstyled" id="homeSubmenu">
@@ -38,10 +42,10 @@ export default class BrowseListing extends React.Component {
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li className="sidesM">
                                     <Link to="#">About</Link>
                                 </li>
-                                <li>
+                                <li className="sidesM">
                                     <Link to="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
                                         className="dropdown-toggle">Pages</Link>
                                     <ul className="collapse list-unstyled" id="pageSubmenu">
@@ -56,10 +60,10 @@ export default class BrowseListing extends React.Component {
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
+                                <li className="sidesM">
                                     <Link to="#1">Portfolio</Link>
                                 </li>
-                                <li>
+                                <li className="sidesM">
                                     <Link to="#1">Contact</Link>
                                 </li>
                             </ul>
@@ -69,11 +73,17 @@ export default class BrowseListing extends React.Component {
                     </div>
 
 
-                    <div id="listingItem" className="container">
+                    <div id="entire">
+
+                    </div>
+
+                    {/* <script>{this.browseListing()}</script> */}
+                    {/* <button type="submit" className="btn btn-primary create" onClick={() => { this.browseListing(); }}>Submit</button> */}
+                    {/* <div id="listingItem" className="container">
 
                         <div className="row">
 
-                            <div className="col-2 item-show">
+                            <div className="singleListing col-2 item-show">
                                 <Link to="/listing"><img src={bike1} className="sub-image" height="100" width="150"
                                     alt="Certified Users"></img></Link>
                                 <p className="text-center">Super Bike</p>
@@ -81,7 +91,7 @@ export default class BrowseListing extends React.Component {
 
                             </div>
 
-                            <div className="col-2 item-show">
+                            <div className="singleListing col-2 item-show">
                                 <Link to="/listing"><img src={bike2} className="sub-image" height="100" width="150"
                                     alt="Certified Users"></img></Link>
                                 <p className="text-center">Awesome Bike</p>
@@ -89,7 +99,7 @@ export default class BrowseListing extends React.Component {
 
                             </div>
 
-                            <div className="col-2 item-show">
+                            <div className="singleListing col-2 item-show">
                                 <Link to="/listing"><img src={bike3} className="sub-image" height="100" width="150"
                                     alt="Certified Users"></img></Link>
                                 <p className="text-center">Jesus Bike</p>
@@ -97,13 +107,13 @@ export default class BrowseListing extends React.Component {
 
                             </div>
 
-                            <div className="col-2 item-show">
+                            <div className="singleListing col-2 item-show">
                                 <img src={sofa} className="sub-image" height="100" width="150" alt="Certified Users"></img>
                                 <p className="text-center">Cute sofa</p>
                                 <p className="text-center">Enjoy your dayoff with this</p>
                             </div>
 
-                            <div className="col-2 item-show">
+                            <div className="singleListing col-2 item-show">
                                 <img src={textbook} className="sub-image" height="100" width="150"
                                     alt="Certified Users"></img>
                                 <p className="text-center">Student's need</p>
@@ -111,9 +121,49 @@ export default class BrowseListing extends React.Component {
                             </div>
 
                         </div>
-                    </div>
+                    </div> */}
                 </div>
-            </div>
+            </div >
         )
+    }
+
+    displayData(data) {
+        let html = `<div id="listingItem" class="container-fluid">
+                        <div class="row browse">`;
+        for (var i = 0; i < Object.keys(data).length; i++) {
+            let id = data[i]['listing_id'];
+            let name = data[i]['name'];
+            let description = data[i]['description'];
+            let price = data[i]['price'];
+            this.info.push({
+                name: name,
+                description: description,
+                price: price
+            });
+
+            html += `<div class="col-3 singleListing item-show">
+                    <a href='http://localhost:3000/listing?id=${id}'>
+                        <p class="text-center">${name}</p>
+                        <p class="text-center color">&#36;${price}</p>
+                        <p>${description}</p>
+                    </a></div>`;
+        }
+        html += `</div>
+                </div>`;
+        let container = document.querySelector('#entire');
+        container.innerHTML = html;
+
+    }
+
+
+    async browseListing() {
+        fetch("http://localhost:3030/browse-listing", {
+            method: 'GET',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.displayData(data);
+            });
     }
 }

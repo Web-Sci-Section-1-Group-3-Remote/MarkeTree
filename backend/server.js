@@ -173,7 +173,14 @@ app.post('/api/verify-user', async (req, res) => {
     let foundCookieHash = hasher.digest('hex');
 
     if (foundCookieHash == cookieHash) {
-      res.json({ success: true });
+      let outputUser = {
+        username: user.username,
+        email: user.email,
+        user_rating: user.user_rating,
+        number_rating: user.number_rating,
+        rpi_status: user.rpi_status,
+      };
+      res.json({ success: true, user: outputUser });
       return;
     }
   }
@@ -196,7 +203,7 @@ app.get('/api/listings', async (req, res) => {
     res.json({ err: 'Unable to search listings' })
   } else {
     res.json({ listings: listings });
-  } 5
+  }
 });
 
 
@@ -213,6 +220,7 @@ app.post('/post-listing', async (req, res) => {
   let category = message.category;
   let description = message.description;
   let price = message.price;
+  let images = message.images;
 
   let time = Math.floor(Math.random() * 1000) + 1;
 
@@ -232,9 +240,42 @@ app.post('/post-listing', async (req, res) => {
       seller: 1,
       buyer: null,
       time: time,
-      images: null
+      images: images
     });
     userId = document.user_id;
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+
+})
+
+app.get('/browse-listing', async (req, res) => {
+
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Listings');
+    let document = await collection.find();
+    let listings = await document.toArray();
+    res.send(listings);
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+
+})
+
+//http://localhost:3030/get-listing/1
+app.get('/get-listing/:id', async (req, res) => {
+
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Listings');
+    let id = req.params.id;
+    id = parseInt(id);
+    let document = await collection.findOne({ listing_id: id });
+    console.log('id', id, 'document', document);
+    res.send(document);
   } catch (e) {
     console.error('Unable to search database', e);
   }

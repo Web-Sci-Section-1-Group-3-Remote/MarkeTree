@@ -1,9 +1,11 @@
 .sidebarWrapper {
-  float: left;
+  display: block;
   width: 20%;
+  float:left;
   margin: 1%;
   border-radius: 5px;
-  min-height: 100vh;
+  /* min-height: 100vh; */
+  height: auto;
   background-color: #262a2e;
 }
 
@@ -31,4 +33,44 @@
 
 #listing {
   min-height: 100vh;
+}
+
+.browse{
+  margin-left: 18%;
+}
+
+.sidesM{
+  margin-top: 1em;
+  font-size: 120%;
+  padding: 5px;
+}
+
+
+.singleListing{
+  margin-left: 6%;
+  border-radius: 6px;
+  border: 2px solid rgb(114, 114, 114);
+  color: #252729;
+  border: 2px solid #838383;
+  font-size: 20px;
+  transition: box-shadow 0.3s;
+}
+
+.singleListing:hover{
+  cursor: pointer;
+    box-shadow: 0px 0px 5px 2px rgb(109, 109, 109);
+    text-decoration: none;
+}
+
+
+#entire{
+  margin-top: 2%;
+}
+
+.color{
+  color: #252729;
+}
+
+a:hover{
+  color: #252729;
 }

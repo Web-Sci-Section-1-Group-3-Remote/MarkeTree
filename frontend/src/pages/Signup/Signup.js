@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 import { Icon } from '@iconify/react';
 import hammerIcon from '@iconify-icons/ion/hammer';
+import e from 'cors';
 
 export default class Signup extends React.Component {
     render() {
@@ -63,14 +64,18 @@ export default class Signup extends React.Component {
     }
 
     userSignUp(){
-        let username = document.getElementById('usernameInput').value;
-        let password = document.getElementById('passwordInput').value;
-        let confirmed = document.getElementById('confirmedPasswordInput').value;
+        let username = document.querySelector('#usernameInput').value;
+        let password = document.querySelector('#passwordInput').value;
+        let confirmed = document.querySelector('#confirmPasswordInput').value;
 
-        alert("posting password");
+
+        console.log(username);
+        console.log(password);
+        console.log(confirmed);
+        console.log("posting password");
 
         if(password !== confirmed){
-            alert("PASSWORDS DO NOT MATCH");
+            alert("Passwords do not match");
             return;
         }
 
@@ -85,6 +90,6 @@ export default class Signup extends React.Component {
                         password: password
                     }),
                 })
-                .then(response => console.log(response))
+                .then(response => console.log(response));
     }
 }

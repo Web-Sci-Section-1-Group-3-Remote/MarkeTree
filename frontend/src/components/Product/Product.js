@@ -70,17 +70,3 @@ function buttonMaker(props) {
 }
 
 export default buttonMaker;
-
-// function buttonMaker() {
-//     const product = {
-//         price: 777.77,
-//         name: 'comfy chair',
-//         description: 'Electric bike',
-//     };
-
-//     return (
-//         <div className="App">
-//             <Product product={product} />
-//         </div>
-//     );
-// }

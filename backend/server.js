@@ -45,6 +45,23 @@ app.post('/api/create-user', async (req, res) => {
     return;
   }
 
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Users');
+    let existinguser = await collection.findOne({username: username});
+    console.log("USER EXISTS ", existinguser);
+    if(existinguser){
+      res.json({ err: 'user already exists' });
+    }
+    return;
+  } catch (e) {
+    console.error('Unable to search database', e);
+    res.json({ err: 'unable to add user' });
+    return;
+  }
+
+
   let saltBuff = crypto.randomBytes(128);
   let salt = saltBuff.toString('hex');
   let saltedPass = password + salt;
@@ -77,7 +94,6 @@ app.post('/api/create-user', async (req, res) => {
     cookie_salt: cookieSalt,
   }
 
-  await ensureConnection();
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Users');

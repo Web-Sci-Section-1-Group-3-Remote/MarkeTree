@@ -27,7 +27,7 @@ export default class Listing extends React.Component {
       <div>
         <HeaderWithLogin />
         <section id="listingContent">
-          <h1 id="name">Electric Bike</h1>
+          <h1 id="name"></h1>
 
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
@@ -62,8 +62,6 @@ export default class Listing extends React.Component {
                         </section>
 
             <section id="Desc" className="listingDesc">
-              I am selling my electric bike. Been using it for years, ready to give it a new home. Model is
-              RAD Power v100.
                          </section>
 
             <section className="listingDescHeader">
@@ -79,7 +77,6 @@ export default class Listing extends React.Component {
               </section>
 
             <section id="price" className="listingDesc">
-              Looking to sell for $1150 OBO
                         </section>
 
             <section id="paymentButtons">
@@ -116,7 +113,7 @@ export default class Listing extends React.Component {
     locat.innerHTML = data['location'];
 
     let price = document.querySelector('#price');
-    price.innerHTML = data['price'];
+    price.innerHTML = '$' + data['price'];
 
     let p = data['price'];
     let n = data['name'];

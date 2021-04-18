@@ -53,8 +53,8 @@ app.post('/api/create-user', async (req, res) => {
     console.log("USER EXISTS ", existinguser);
     if(existinguser){
       res.json({ err: 'user already exists' });
+      return;
     }
-    return;
   } catch (e) {
     console.error('Unable to search database', e);
     res.json({ err: 'unable to add user' });

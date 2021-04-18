@@ -240,6 +240,13 @@ app.post('/post-listing', async (req, res) => {
 
   let time = Math.floor(Math.random() * 1000) + 1;
 
+  if (item == null || item == '' || category == null || category == ''
+  || email == null || email == ''|| description == null ||
+   description == '' || price == null || price == '') {
+    res.json('please fill out all fields');
+    return;
+  }
+
   await ensureConnection();
 
   try {

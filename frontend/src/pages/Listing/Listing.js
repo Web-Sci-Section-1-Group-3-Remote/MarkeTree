@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import Product from '../../components/Product/Product';
-import buttonMaker from '../../components/Product/Product';
 import './Listing.css';
 
 import bike1 from "../../images/images/bike1.jpg";
@@ -10,24 +9,29 @@ import bike3 from "../../images/images/bike3.jpg";
 
 export default class Listing extends React.Component {
 
-  product = {
-    price: 23.17,
-    name: 'no thanks',
-    description: 'alksdjflskdafjsfaksdjfklasdjfaslkdfjaskldfjaklsdfasdf'
+  constructor(props){
+    super(props);
+    this.state = {
+      loading: true,
+      price: null,
+      name: null,
+      desc: null
+    };
+    
   }
 
   componentDidMount() {
     window.addEventListener('load', () => { this.getListingInfo() });
+    // this.setState({loading: false});
   }
 
 
   render() {
-    console.log("PRODUCT1: ", this.product);
     return (
       <div>
         <HeaderWithLogin />
         <section id="listingContent">
-          <h1 id="name"></h1>
+          <h1 id="name">{this.state.loading ? (null) : (this.state.name)}</h1>
 
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
@@ -62,6 +66,7 @@ export default class Listing extends React.Component {
                         </section>
 
             <section id="Desc" className="listingDesc">
+            {this.state.loading ? (null) : (this.state.desc)}
                          </section>
 
             <section className="listingDescHeader">
@@ -77,51 +82,18 @@ export default class Listing extends React.Component {
               </section>
 
             <section id="price" className="listingDesc">
+            {this.state.loading ? (null) : (this.state.price)}
                         </section>
 
             <section id="paymentButtons">
-              {/* <Product product={this.product} /> */}
-              <Product />
+              {console.log("STATE: ", this.state)}
+              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc}/>)}
             </section>
           </div>
 
         </section>
       </div >
     )
-  }
-
-
-  displayData(data) {
-
-    console.log("displaying data");
-
-    this.product = {
-      price: data['price'],
-      name: data['name'],
-      description: data['description']
-    };
-
-    // this.forceUpdate();
-    // The listing associate with each item is now working.
-    let name = document.querySelector('#name');
-    name.innerHTML = data['name'];
-
-    let desc = document.querySelector('#Desc');
-    desc.innerHTML = data['description'];
-
-    let locat = document.querySelector('#locat');
-    locat.innerHTML = data['location'];
-
-    let price = document.querySelector('#price');
-    price.innerHTML = '$' + data['price'];
-
-    let p = data['price'];
-    let n = data['name'];
-    let d = data['description'];
-
-    buttonMaker(p, n, d);
-    // console.log(data['price'])
-    // console.log(button(data['price'], data['name'], data['description']));
   }
 
   async getListingInfo() {
@@ -138,7 +110,12 @@ export default class Listing extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        this.displayData(data);
+        this.setState({
+          loading: false,
+          price: data['price'],
+          name: data['name'],
+          desc: data['description']
+        });
       });
   }
 }

@@ -49,9 +49,9 @@ app.post('/api/create-user', async (req, res) => {
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Users');
-    let existinguser = await collection.findOne({username: username});
+    let existinguser = await collection.findOne({ username: username });
     console.log("USER EXISTS ", existinguser);
-    if(existinguser){
+    if (existinguser) {
       res.json({ err: 'user already exists' });
       return;
     }
@@ -224,8 +224,11 @@ app.get('/api/listings', async (req, res) => {
 
 
 
+// Create an event, store the event info into the Event collection in the MongoDB
 
 
+
+// Create listing, store the listing item info into the Listing collection in the MongoDB
 app.post('/post-listing', async (req, res) => {
   let message = req.body.listingData;
   console.log(message);
@@ -241,8 +244,8 @@ app.post('/post-listing', async (req, res) => {
   let time = Math.floor(Math.random() * 1000) + 1;
 
   if (item == null || item == '' || category == null || category == ''
-  || email == null || email == ''|| description == null ||
-   description == '' || price == null || price == '') {
+    || email == null || email == '' || description == null ||
+    description == '' || price == null || price == '') {
     res.json('please fill out all fields');
     return;
   }

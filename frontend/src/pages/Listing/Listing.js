@@ -27,7 +27,7 @@ export default class Listing extends React.Component {
       <div>
         <HeaderWithLogin />
         <section id="listingContent">
-          <h1 id="name"></h1>
+          <h1 id="name">Hello</h1>
 
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
@@ -62,7 +62,7 @@ export default class Listing extends React.Component {
                         </section>
 
             <section id="Desc" className="listingDesc">
-                         </section>
+            </section>
 
             <section className="listingDescHeader">
               Location
@@ -77,7 +77,7 @@ export default class Listing extends React.Component {
               </section>
 
             <section id="price" className="listingDesc">
-                        </section>
+            </section>
 
             <section id="paymentButtons">
               {/* <Product product={this.product} /> */}
@@ -86,7 +86,7 @@ export default class Listing extends React.Component {
           </div>
 
         </section>
-      </div >
+      </div>
     )
   }
 

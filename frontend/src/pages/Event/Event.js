@@ -98,7 +98,20 @@ export default class Event extends React.Component {
         let eventName = document.getElementById('inputEventName').value;
         let location = document.getElementById('inputEventLocation').value;
         let date = document.getElementById('inputDate').value;
-        console.log(host);
+        let time = document.getElementById('inputTime').value;
+        let desc = document.getElementById('inputEventDescription').value;
+
+
+
+        const data = {
+            host: host,
+            eventName: eventName,
+            eventLocation: location,
+            date: date,
+            time: time,
+            description: desc
+        }
+        console.log(data);
 
     }
 }

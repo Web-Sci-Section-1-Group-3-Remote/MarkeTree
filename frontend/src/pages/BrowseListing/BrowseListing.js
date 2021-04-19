@@ -123,7 +123,7 @@ export default class BrowseListing extends React.Component {
                         </div>
                     </div> */}
                 </div>
-            </div >
+            </div>
         )
     }
 

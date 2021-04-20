@@ -114,7 +114,7 @@ export default class Event extends React.Component {
         console.log(data);
 
         // Assign the value into mongoDB
-        fetch("http://localhost:3030/post-listing", {
+        fetch("http://localhost:3030/post-event", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

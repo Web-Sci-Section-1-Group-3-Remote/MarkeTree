@@ -225,6 +225,17 @@ app.get('/api/listings', async (req, res) => {
 
 
 // Create an event, store the event info into the Event collection in the MongoDB
+app.post('/post-event', async (req, res) => {
+  let message = req.body.data;
+  console.log(message);
+  let host = message.host;
+  let name = message.eventName;
+  let location = message.eventLocation;
+  let date = message.date;
+  let time = message.time;
+  let desc = message.description;
+
+})
 
 
 

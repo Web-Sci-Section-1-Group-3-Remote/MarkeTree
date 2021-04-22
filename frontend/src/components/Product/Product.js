@@ -22,10 +22,10 @@ function Product({props}) {
                     return actions.order.create({
                         purchase_units: [
                             {
-                                description: product.description,
+                                description: props.description,
                                 amount: {
                                     currency_code: 'USD',
-                                    value: product.price,
+                                    value: props.price,
                                 },
                             },
                         ],
@@ -47,7 +47,7 @@ function Product({props}) {
     if (paidFor) {
         return (
             <div>
-                <h1>Congrats, you just bought {product.name}!</h1>
+                <h1>Congrats, you just bought {props.name}!</h1>
             </div>
         );
     }

@@ -51,9 +51,9 @@ app.post('/api/create-user', async (req, res) => {
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Users');
-    let existinguser = await collection.findOne({username: username});
+    let existinguser = await collection.findOne({ username: username });
     console.log("USER EXISTS ", existinguser);
-    if(existinguser){
+    if (existinguser) {
       res.json({ err: 'user already exists' });
       return;
     }
@@ -226,8 +226,54 @@ app.get('/api/listings', async (req, res) => {
 
 
 
+// Create an event, store the event info into the Event collection in the MongoDB
+app.post('/post-event', async (req, res) => {
+  let message = req.body.data;
+  console.log(message);
+  let host = message.host;
+  let name = message.eventName;
+  let location = message.eventLocation;
+  let date = message.date;
+  let time = message.time;
+  let desc = message.description;
+
+  var data = date.split("/");
+  var tmp = time.split(":");
+  var hour = tmp[0];
+  var min = tmp[1];
+
+  // Mongodb Connection
+  await ensureConnection();
+  let db = client.db('MarkeTree');
+  let collection = db.collection('Event');
+  let id = await collection.countDocuments();
+  let document = await collection.insertOne({
+    event_id: id,
+    event_host: host,
+    event_name: name,
+    event_location: location,
+    event_month: data[0],
+    event_day: data[1],
+    event_year: data[2],
+    event_hour: hour,
+    event_min: min,
+    event_description: desc
+  });
+
+})
+
+// Get the 'event' information from the DB, and send back to the client.
+app.get('/get-event', async (req, res) => {
+  await ensureConnection();
+  let db = client.db('MarkeTree');
+  let collection = db.collection('Event');
+  let document = await collection.find();
+  let listings = await document.toArray();
+  res.send(listings);
+})
 
 
+// Create listing, store the listing item info into the Listing collection in the MongoDB
 app.post('/post-listing', async (req, res) => {
   let message = req.body.listingData;
   console.log(message);
@@ -245,8 +291,8 @@ app.post('/post-listing', async (req, res) => {
   const targetPath = path.join(__dirname, "./frontend/src/images");
 
   if (item == null || item == '' || category == null || category == ''
-  || email == null || email == ''|| description == null ||
-   description == '' || price == null || price == '') {
+    || email == null || email == '' || description == null ||
+    description == '' || price == null || price == '') {
     res.json('please fill out all fields');
     return;
   }

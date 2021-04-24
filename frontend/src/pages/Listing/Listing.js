@@ -31,7 +31,9 @@ export default class Listing extends React.Component {
       <div>
         <HeaderWithLogin />
         <section id="listingContent">
+
           <h1 id="name">{this.state.loading ? (null) : (this.state.name)}</h1>
+
 
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
@@ -66,6 +68,7 @@ export default class Listing extends React.Component {
                         </section>
 
             <section id="Desc" className="listingDesc">
+
             {this.state.loading ? (null) : (this.state.desc)}
                          </section>
 
@@ -82,6 +85,7 @@ export default class Listing extends React.Component {
               </section>
 
             <section id="price" className="listingDesc">
+
             {this.state.loading ? (null) : (this.state.price)}
                         </section>
 
@@ -92,7 +96,7 @@ export default class Listing extends React.Component {
           </div>
 
         </section>
-      </div >
+      </div>
     )
   }
 

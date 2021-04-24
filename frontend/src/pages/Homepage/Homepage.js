@@ -1,20 +1,17 @@
 import React from 'react';
-import{Link} from 'react-router-dom';
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header/Header';
+import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./Homepage.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css"; 
 
 import sale from "../../images/sale.jpg";
-import auth_user from "../../images/auth-user.jpg";
+import auth_user from "../../images/auth-user.png";
 import used_item from "../../images/used-item.jpg";
 import book from "../../images/book.jpg";
 import transaction from "../../images/transaction.png";
 import quick_find from "../../images/quick-finding.png";
 import union from "../../images/union.jpg";
-
-import { Icon } from '@iconify/react';
-import balanceScale from '@iconify-icons/fa/balance-scale';
 
 
 export default class Homepage extends React.Component {
@@ -23,29 +20,13 @@ export default class Homepage extends React.Component {
             <div>
             <Header />
             <section id="mainContent">
-
-                <div id="top" className="jumbotron"
-                    data-position="center right">
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-1"></div>
-                            <div id="title" className="col-md-5">
-                                <h2 id="header">MarkeTree</h2>
-                                <h6>The ultimate resource to prepare for the sale events and services. </h6>
-                                <h6>Everything you need, in one streamlined platform.</h6>
-                                <Link className="btn btn-dark trying" to="/login" role="button"><Icon icon={balanceScale} />&nbsp;&nbsp;Try
-                                    MarkeTree Now</Link>
-                            </div>
-        
-                            <div className="col-md-6 wrapper">
-                                <div className="inner">
-                                    <img id="sale" src={sale} className="rounded float-start" alt="..."></img>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
+                
+                <Jumbotron
+                    title="MarkeTree"
+                    slogan="The ultimate resource for sales and services."
+                    slogan2="Everything you need, in one streamlined platform."
+                    img={sale}
+                />
     
                 <div className="background-yellow">
               

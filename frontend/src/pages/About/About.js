@@ -1,13 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import balanceScale from '@iconify-icons/fa/balance-scale';
 import Header from '../../components/Header/Header';
+import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./About.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 
-import auth from "../../images/auth-user.jpg";
+import auth from "../../images/auth-user.png";
 import team from "../../images/team.png"
 import Anthony from "../../images/anthony.jpg"
 import Yanshen from "../../images/yanshen.jpg"
@@ -21,25 +19,11 @@ export default class About extends React.Component {
                 <Header />
                 <section id="mainContent">
 
-                    <div id="top" className="jumbotron" data-position="center right">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-1"></div>
-                                <div id="title" className="col-md-5">
-                                    <h2 id="header">About MarkeTree</h2>
-                                    <h6>The team of individuals, ready for you</h6>
-                                    <Link className="btn btn-dark trying" to="/login" role="button"><Icon icon={balanceScale} />&nbsp;&nbsp;Try
-                                    MarkeTree Now</Link>
-                                </div>
-
-                                <div className="col-md-6 wrapper">
-                                    <div className="inner">
-                                        <img id="sale" src={team} className="rounded float-start" alt="..."></img>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Jumbotron
+                        title="Meet the Team"
+                        slogan="Cutting edge developers."
+                        img={team}
+                    />
 
                     <div className="background-yellow">
                         <div id="about-us" className="container">
@@ -50,9 +34,7 @@ export default class About extends React.Component {
                                 <div className="col-3 content-block">
                                     <img src={auth} className="sub-image" height="180" width="180" alt="Certified Users"></img>
                                     <h5 className="sub-section">Michael Peters</h5>
-                                    <p className="brief">
-                                        Epic Gamer
-                </p>
+                                    <p className="brief">Epic Gamer</p>
                                 </div>
 
                                 <div className="col-3 content-block">

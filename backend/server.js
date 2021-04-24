@@ -13,7 +13,7 @@ const port = 3030;
 
 app.use(cors());
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '5tb' }));
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -52,8 +52,8 @@ app.post('/api/create-user', async (req, res) => {
     let db = client.db('MarkeTree');
     let collection = db.collection('Users');
     let existinguser = await collection.findOne({ username: username });
-    console.log("USER EXISTS ", existinguser);
     if (existinguser) {
+      console.log("note: user already exists ", existinguser);
       res.json({ err: 'user already exists' });
       return;
     }
@@ -110,7 +110,7 @@ app.post('/api/create-user', async (req, res) => {
 });
 
 // With a username and a password
-app.post('/api/authorize-user', async (req, res) => {
+app.post('/api/authenticate-user', async (req, res) => {
   // username-password for now
   let username = req.body.username;
   let password = req.body.password;
@@ -127,7 +127,7 @@ app.post('/api/authorize-user', async (req, res) => {
     userId = document.user_id;
   } catch (e) {
     console.error('Unable to search database', e);
-    res.json({ err: 'unable to authorize user' });
+    res.json({ err: 'unable to authenticate user' });
     return;
   }
 
@@ -164,10 +164,7 @@ app.post('/api/authorize-user', async (req, res) => {
   res.json({ cookie: cookie });
 });
 
-// With a cookie token
-app.post('/api/verify-user', async (req, res) => {
-  let cookie = req.body.cookie;
-
+async function verifyCookie(cookie) {
   let allUsers = null;
   await ensureConnection();
   try {
@@ -177,8 +174,7 @@ app.post('/api/verify-user', async (req, res) => {
     allUsers = await cursor.toArray();
   } catch (e) {
     console.error('this pretty bad...', e);
-    res.json({ err: 'unable to verify user' });
-    return;
+    return null;
   }
 
   for (user of allUsers) {
@@ -198,12 +194,25 @@ app.post('/api/verify-user', async (req, res) => {
         number_rating: user.number_rating,
         rpi_status: user.rpi_status,
       };
-      res.json({ success: true, user: outputUser });
-      return;
+      return outputUser;
     }
   }
-  console.log('bad cookie: ', cookie);
-  res.json({ err: 'unable to verify user' });
+
+  return null;
+}
+
+// With a cookie token
+app.post('/api/verify-user', async (req, res) => {
+  let cookie = req.body.cookie;
+
+  let user = await verifyCookie(cookie);
+
+  if (user == null) {
+    console.log('bad cookie: ', cookie);
+    res.json({ err: 'unable to verify user' });
+  } else {
+    res.json({ success: true, user: outputUser });
+  }
 });
 
 app.get('/api/listings', async (req, res) => {
@@ -237,7 +246,7 @@ app.post('/post-event', async (req, res) => {
   let time = message.time;
   let desc = message.description;
 
-  var data = date.split("/");
+  var data = date.split("-");
   var tmp = time.split(":");
   var hour = tmp[0];
   var min = tmp[1];
@@ -252,9 +261,9 @@ app.post('/post-event', async (req, res) => {
     event_host: host,
     event_name: name,
     event_location: location,
-    event_month: data[0],
-    event_day: data[1],
-    event_year: data[2],
+    event_month: data[1],
+    event_day: data[2],
+    event_year: data[0],
     event_hour: hour,
     event_min: min,
     event_description: desc
@@ -272,11 +281,20 @@ app.get('/get-event', async (req, res) => {
   res.send(listings);
 })
 
+//image uploading
+function readAndWriteFile(singleImg, newPath) {
+
+  fs.readFile(singleImg.path, function (err, data) {
+    fs.writeFile(newPath, data, function (err) {
+      if (err) console.log('ERRRRRR!! :' + err);
+      console.log('Fitxer: ' + singleImg.originalFilename + ' - ' + newPath);
+    })
+  })
+}
 
 // Create listing, store the listing item info into the Listing collection in the MongoDB
-app.post('/post-listing', async (req, res) => {
+app.post('/api/post-listing', async (req, res) => {
   let message = req.body.listingData;
-  console.log(message);
   let username = message.username;
   let email = message.email;
   let zip = message.zip;
@@ -286,9 +304,7 @@ app.post('/post-listing', async (req, res) => {
   let price = message.price;
   let images = message.images;
 
-  let time = Date.now();
-
-  const targetPath = path.join(__dirname, "./frontend/src/images");
+  let time = 1;
 
   if (item == null || item == '' || category == null || category == ''
     || email == null || email == '' || description == null ||
@@ -312,10 +328,25 @@ app.post('/post-listing', async (req, res) => {
       category: category,
       seller: 1,
       buyer: null,
-      time: time,
-      images: images
+      time: time
     });
     userId = document.user_id;
+
+    let bigText = '';
+
+    for (var i = 0; i < images.length; i++) {
+      var newPath = '../frontend/src/images/' + id + '/';
+      if (!fs.existsSync(newPath)) {
+        fs.mkdirSync(newPath);
+      }
+      var base64Image = images[i]; //base64 encode image text
+      bigText += base64Image + '\n';
+      // readAndWriteFile(singleImg, newPath);
+    }
+    newPath += 'images.img';
+    fs.writeFileSync(newPath, bigText);
+    console.log('writing base64Images to ' + newPath, bigText);
+
   } catch (e) {
     console.error('Unable to search database', e);
   }
@@ -330,6 +361,18 @@ app.get('/browse-listing', async (req, res) => {
     let collection = db.collection('Listings');
     let document = await collection.find();
     let listings = await document.toArray();
+
+    for (let listing of listings) {
+      if (fs.existsSync('../frontend/src/images/' + listing.listing_id + '/images.img')) {
+        let imagesText = fs.readFileSync('../frontend/src/images/' + listing.listing_id + '/images.img').toString();
+        let images = imagesText.split('\n').filter(e => e != '');
+        listing.images = images;
+      } else {
+        for (let listing of listings) {
+          listing.images = [];
+        }
+      }
+    }
     res.send(listings);
   } catch (e) {
     console.error('Unable to search database', e);
@@ -348,6 +391,13 @@ app.get('/get-listing/:id', async (req, res) => {
     id = parseInt(id);
     let document = await collection.findOne({ listing_id: id });
     console.log('id', id, 'document', document);
+    if (fs.existsSync('../frontend/src/images/' + id + '/images.img')) {
+      let imagesText = fs.readFileSync('../frontend/src/images/' + id + '/images.img').toString();
+      let images = imagesText.split('\n').filter(e => e != '');
+      document.images = images;
+    } else {
+      document.images = [];
+    }
     res.send(document);
   } catch (e) {
     console.error('Unable to search database', e);

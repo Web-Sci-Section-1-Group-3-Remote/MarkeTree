@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.container hr {
+  width: 400px;
+}

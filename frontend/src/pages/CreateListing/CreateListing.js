@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./CreateListing.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
-import { Icon } from '@iconify/react';
-import hammerIcon from '@iconify-icons/ion/hammer';
+
 
 import create from "../../images/createListing.jpg"
 
@@ -18,34 +18,19 @@ export default class CreateListing extends React.Component {
                 <HeaderWithLogin />
                 <section id="mainContent">
 
-                    <div id="top" className="jumbotron"
-                        data-position="center right">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-1"></div>
-                                <div id="title" className="col-md-5">
-                                    <h2 id="header">Create MarkeTree</h2>
-                                    <h6>The ultimate Platform </h6>
-                                    <h6>Leave a footprint and make everything worthwhile</h6>
-                                    <Link className="btn btn-dark trying" to="#creating" role="button"><Icon icon={hammerIcon} />&nbsp;&nbsp;Create
-                            Your Lists Now</Link>
-                                </div>
-
-                                <div className="col-md-6 wrapper">
-                                    <div className="inner">
-                                        <img id="sale" src={create} className="rounded float-start" alt="..."></img>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Jumbotron
+                        title="Create Listing"
+                        slogan="Use the ultimate selling platform"
+                        slogan2="Leave a footprint to make everything worthwhile"
+                        img={create}
+                    />
 
 
                     <div id="creating" className="container">
                         <h2 className="what">Create Listing</h2>
                         <hr></hr>
 
-                        <form className="row g-3">
+                        <form className="row g-3" enctype='multipart/form-data'>
                             <div className="col-4">
                                 <label htmlFor="inputName" className="form-label">Name</label>
                                 <input type="name" className="form-control" id="inputName" required></input>
@@ -161,7 +146,7 @@ export default class CreateListing extends React.Component {
         console.log(listingData);
         alert('yay');
 
-        fetch("http://localhost:3030/post-listing", {
+        fetch("http://localhost:3030/api/post-listing", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

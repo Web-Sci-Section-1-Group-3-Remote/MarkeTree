@@ -19,9 +19,9 @@ export default class BrowseListing extends React.Component {
             <div>
                 <HeaderWithLogin />
                 <div id="listings">
-                    <div className="sidebarWrapper">
-                        <nav id="sidebar">
-                            <div className="sidebar-header">
+                    <div className="topbarWrapper">
+                        <nav id="topbar">
+                            <div className="topbar-header">
                                 <h3>Categories</h3>
                             </div>
 
@@ -128,12 +128,14 @@ export default class BrowseListing extends React.Component {
     }
 
     displayData(data) {
+        console.log(data, data);
         let html = `<div id="listingItem" class="container-fluid">
                         <div class="row browse">`;
-        for (var i = 0; i < Object.keys(data).length; i++) {
+        for (let i = Object.keys(data).length - 1; i >= 0; i--) {
             let id = data[i]['listing_id'];
             let name = data[i]['name'];
             let description = data[i]['description'];
+            let images = data[i]['images'];
             let price = data[i]['price'];
             this.info.push({
                 name: name,
@@ -141,12 +143,16 @@ export default class BrowseListing extends React.Component {
                 price: price
             });
 
-            html += `<div class="col-3 singleListing item-show">
-                    <a href='http://localhost:3000/listing?id=${id}'>
-                        <p class="text-center">${name}</p>
-                        <p class="text-center color">&#36;${price}</p>
-                        <p>${description}</p>
-                    </a></div>`;
+            let imageSrc = images.length > 0 ? images[0] : 'http://memes.elipzer.com/memes/33.jpg';
+
+            html += `<a href='http://localhost:3000/listing?id=${id}'>
+                    <div class="singleListing">
+                        <img src=${imageSrc} alt="screen readers">
+                        <p class="listingName text-center">${name}</p>
+                        <p class="listingPrice text-center color">&#36;${price}</p>
+                        <p class="listingDesc">${description}</p>
+                    </div>
+                </a>`;
         }
         html += `</div>
                 </div>`;

@@ -4,6 +4,12 @@
 
 .allEvent {
   cursor: pointer;
+  margin-top: 1.5em;
+  padding: 2px;
+}
+
+#creating {
+  display: block;
 }
 
 .event_play {

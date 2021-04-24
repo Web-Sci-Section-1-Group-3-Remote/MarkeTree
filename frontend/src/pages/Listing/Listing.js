@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import Product from '../../components/Product/Product';
 import './Listing.css';
@@ -9,7 +9,7 @@ import bike3 from "../../images/images/bike3.jpg";
 
 export default class Listing extends React.Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       loading: true,
@@ -17,7 +17,7 @@ export default class Listing extends React.Component {
       name: null,
       desc: null
     };
-    
+
   }
 
   componentDidMount() {
@@ -69,8 +69,8 @@ export default class Listing extends React.Component {
 
             <section id="Desc" className="listingDesc">
 
-            {this.state.loading ? (null) : (this.state.desc)}
-                         </section>
+              {this.state.loading ? (null) : (this.state.desc)}
+            </section>
 
             <section className="listingDescHeader">
               Location
@@ -86,12 +86,12 @@ export default class Listing extends React.Component {
 
             <section id="price" className="listingDesc">
 
-            {this.state.loading ? (null) : (this.state.price)}
-                        </section>
+              {this.state.loading ? (null) : (this.state.price)}
+            </section>
 
             <section id="paymentButtons">
               {console.log("STATE: ", this.state)}
-              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc}/>)}
+              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc} />)}
             </section>
           </div>
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../../components/Header/Header'
+import Header from '../../components/Header/Header';
+import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./Help.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 
 import help from "../../images/help.jpg"
-import auth_user from "../../images/auth-user.jpg";
+import auth_user from "../../images/auth-user.png";
 import used_item from "../../images/used-item.jpg";
 import book from "../../images/book.jpg";
 
@@ -16,27 +16,12 @@ export default class Help extends React.Component {
             <div>
                 <Header />
                 <section id="mainContent">
-
-                    <div id="top" className="jumbotron"
-                        data-position="center right">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col-md-1"></div>
-                                <div id="title" className="col-md-5">
-                                    <h2 id="header">Fixed MarkeTree</h2>
-                                    <h6>You've Got Questions</h6>
-                                    <h6>We've got answers</h6>
-                                    <Link className="btn btn-dark trying" to="#faq" role="button">&#10068;&nbsp;Find Your Answers</Link>
-                                </div>
-
-                                <div className="col-md-6 wrapper">
-                                    <div className="inner">
-                                        <img id="sale" src={help} className="rounded float-start" alt="..."></img>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Jumbotron
+                        title="Need Help"
+                        slogan="You've got questions?"
+                        slogan2="We've got answers."
+                        img={help}
+                    />
                 </section>
                 <div className="background-yellow">
                     <div id="faq" className="container">
@@ -67,8 +52,7 @@ export default class Help extends React.Component {
                                     digitalize transaction.
                                     If you decide to pay through the website, our website supports Venmo as third party payment
                                     service.
-                            <b>COVID 19 Notice:</b>
-                            We highly recomment digital transaction during COVID 19 Pandemic.
+                            <b>COVID 19 Notice:</b> We highly recomment digital transaction during COVID 19 Pandemic.
                         </p>
                             </div>
 

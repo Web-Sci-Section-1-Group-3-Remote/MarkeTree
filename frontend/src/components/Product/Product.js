@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Product.css';
 
-function Product({ product }) {
+function Product({props}) {
     const [paidFor, setPaidFor] = useState(false);
     const [error, setError] = useState(null);
     const paypalRef = useRef();
 
-    // console.log(product);
+    const product = useState(props);
+    console.log("MAKING: ",props);
 
     useEffect(() => {
         window.paypal
@@ -21,10 +22,10 @@ function Product({ product }) {
                     return actions.order.create({
                         purchase_units: [
                             {
-                                description: product.description,
+                                description: props.description,
                                 amount: {
                                     currency_code: 'USD',
-                                    value: product.price,
+                                    value: props.price,
                                 },
                             },
                         ],
@@ -41,12 +42,12 @@ function Product({ product }) {
                 },
             })
             .render(paypalRef.current);
-    }, [product.description, product.price]);
+    }, [props.desc, props.price]);
 
     if (paidFor) {
         return (
             <div>
-                <h1>Congrats, you just bought {product.name}!</h1>
+                <h1>Congrats, you just bought {props.name}!</h1>
             </div>
         );
     }
@@ -55,46 +56,17 @@ function Product({ product }) {
         <div>
             {error && <div>Uh oh, an error occurred! {error.message}</div>}
             <h1>
-                {product.description} for ${product.price}
+                {props.name} for ${props.price}
             </h1>
             <div ref={paypalRef} />
         </div>
     );
 }
 
-function buttonMaker(p, n, d) {
-    console.log(p, n, d);
-    // p, n, d are the info from the listing.js. This step is correct. But we cannot assign these value into the product json object.
-    let product = {
-        price: 2,
-        name: 'name',
-        description: 'name'
-    };
-    // console.log(product[0]);
-    // let data = product[0];
-    // const product = {
-    //     price: 777.77,
-    //     name: 'comfy chair',
-    //     description: 'Electric bike',
-    // };
-
+function buttonMaker(props) {
     return (
-        <Product product={product} />
+        <Product props={props} />
     );
 }
 
 export default buttonMaker;
-
-// function buttonMaker() {
-//     const product = {
-//         price: 777.77,
-//         name: 'comfy chair',
-//         description: 'Electric bike',
-//     };
-
-//     return (
-//         <div className="App">
-//             <Product product={product} />
-//         </div>
-//     );
-// }

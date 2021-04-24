@@ -45,7 +45,7 @@ export default class Event extends React.Component {
                     <div className="row">
                         <div className="col-2"></div>
                         <div className="col-4">
-                            <h2 className="allEvent">All Events</h2>
+                            <h2 className="allEvent" onClick={() => { this.displaying(); }}>All Events</h2>
                         </div>
                         <div className="col-2"></div>
                         <div className="col-4">
@@ -55,7 +55,7 @@ export default class Event extends React.Component {
                     <hr></hr>
 
                     {/* Show all event */}
-                    <div id="show_event" className="event_play">
+                    <div id="show_event">
 
                     </div>
 
@@ -99,6 +99,9 @@ export default class Event extends React.Component {
         )
     }
 
+    displaying() {
+
+    }
 
     // Load the data from Database when the page is loaded. 
     async getEvent() {
@@ -168,7 +171,7 @@ export default class Event extends React.Component {
                                     <div class="event-description">${data[i]['event_description']}</div>
 
                                     <div class="event-timing">
-                                    <i class="far fa-clock"> ${data[i]['event_hour']}:${data[i]['event_min']}</i>
+                                       ${data[i]['event_hour']}:${data[i]['event_min']}
                                     </div>
                                 </div>
                         </div>`;

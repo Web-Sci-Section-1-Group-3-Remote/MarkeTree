@@ -235,8 +235,40 @@ app.post('/post-event', async (req, res) => {
   let time = message.time;
   let desc = message.description;
 
+  var data = date.split("/");
+  var tmp = time.split(":");
+  var hour = tmp[0];
+  var min = tmp[1];
+
+  // Mongodb Connection
+  await ensureConnection();
+  let db = client.db('MarkeTree');
+  let collection = db.collection('Event');
+  let id = await collection.countDocuments();
+  let document = await collection.insertOne({
+    event_id: id,
+    event_host: host,
+    event_name: name,
+    event_location: location,
+    event_month: data[0],
+    event_day: data[1],
+    event_year: data[2],
+    event_hour: hour,
+    event_min: min,
+    event_description: desc
+  });
+
 })
 
+// Get the 'event' information from the DB, and send back to the client.
+app.get('/get-event', async (req, res) => {
+  await ensureConnection();
+  let db = client.db('MarkeTree');
+  let collection = db.collection('Event');
+  let document = await collection.find();
+  let listings = await document.toArray();
+  res.send(listings);
+})
 
 
 // Create listing, store the listing item info into the Listing collection in the MongoDB

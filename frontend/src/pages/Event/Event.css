@@ -1,7 +1,11 @@
-.event{
-    width: 525px;
+.event-img {
+  width: 525px;
 }
 
-.allEvent{
-    cursor: pointer;
+.allEvent {
+  cursor: pointer;
+}
+
+.event_play {
+  display: flex;
 }

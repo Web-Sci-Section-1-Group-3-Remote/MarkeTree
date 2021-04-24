@@ -5,6 +5,8 @@ const crypto = require('crypto');
 const { MongoClient } = require('mongodb');
 const uuidv4 = require('uuid').v4;
 const cors = require('cors');
+const fs = require("fs");
+const multer = require("multer");
 
 const app = express();
 const port = 3030;
@@ -238,7 +240,9 @@ app.post('/post-listing', async (req, res) => {
   let price = message.price;
   let images = message.images;
 
-  let time = Math.floor(Math.random() * 1000) + 1;
+  let time = Date.now();
+
+  const targetPath = path.join(__dirname, "./frontend/src/images");
 
   if (item == null || item == '' || category == null || category == ''
   || email == null || email == ''|| description == null ||

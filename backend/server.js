@@ -115,7 +115,7 @@ app.post('/api/authenticate-user', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
   // assumed strings, not null
-
+  console.log("User '" + username + "' attemps to login");
   let userId = null;
   await ensureConnection();
   try {
@@ -124,7 +124,24 @@ app.post('/api/authenticate-user', async (req, res) => {
     let document = await collection.findOne({
       username: username
     });
-    userId = document.user_id;
+
+    if (document != null) {
+      let salt = document.password_salt;
+      let saltedPass = password + salt;
+
+      let hasher = crypto.createHash('sha256');
+      hasher.update(saltedPass);
+      let hashedPass = hasher.digest('hex');
+      if (document.password_hash == hashedPass) {
+        userId = document.user_id;
+      } else {
+        console.log('bad password');
+        userId = null;
+      }
+    } else {
+      console.log('bad username');
+      userId = null;
+    }
   } catch (e) {
     console.error('Unable to search database', e);
     res.json({ err: 'unable to authenticate user' });
@@ -161,6 +178,7 @@ app.post('/api/authenticate-user', async (req, res) => {
     return;
   }
 
+  console.log(username + "'s cookie: " + cookie);
   res.json({ cookie: cookie });
 });
 
@@ -352,7 +370,7 @@ app.post('/api/post-listing', async (req, res) => {
   }
 
 })
-
+// Browse Listing API
 app.get('/browse-listing', async (req, res) => {
 
   await ensureConnection();
@@ -379,7 +397,17 @@ app.get('/browse-listing', async (req, res) => {
   }
 
 })
-
+//Filter Listing API
+app.get('/filter-listing:category', async (req, res) => {
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let collection = db.collection('Listings');
+    let document = await collection.find()
+  } catch (e) {
+    console.error('Unable to search database', e);
+  }
+})
 //http://localhost:3030/get-listing/1
 app.get('/get-listing/:id', async (req, res) => {
 

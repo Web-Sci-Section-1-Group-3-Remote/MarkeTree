@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaGithubSquare } from "react-icons/fa";
 import "./Footer.css";
 
 
@@ -14,8 +15,7 @@ export default class Footer extends React.Component {
                             <p className="border-endh"><a href="/about">Meet the Team</a></p>
                             <p className="border-lineh"></p>
 
-                            <p className="border-endh"><a href="https://github.com/Web-Sci-Section-1-Group-3-Remote/MarkeTree"><i
-                                className="fab fa-github"></i> Github</a></p>
+                            <p className="border-endh"><a href="https://github.com/Web-Sci-Section-1-Group-3-Remote/MarkeTree"><FaGithubSquare /> Github</a></p>
                         </div>
                     </div>
 

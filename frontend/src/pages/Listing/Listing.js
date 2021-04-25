@@ -15,7 +15,8 @@ export default class Listing extends React.Component {
       loading: true,
       price: null,
       name: null,
-      desc: null
+      desc: null,
+      images: null
     };
 
   }
@@ -34,15 +35,37 @@ export default class Listing extends React.Component {
 
           <h1 id="name">{this.state.loading ? (null) : (this.state.name)}</h1>
 
-
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+
+              {this.state.loading ? (null) : this.state.images.map((value, index) => {
+
+                if (index === 0) {
+                  console.log("IMAGE FIRST")
+                  return <li data-target="#carouselExampleIndicators" className="active" data-slide-to={index}></li>
+                }
+
+                return <li data-target="#carouselExampleIndicators" data-slide-to={index}></li>
+              })}
+
+              {/* <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> */}
             </ol>
             <div className="carousel-inner">
-              <div className="carousel-item active">
+
+              {this.state.loading ? (null) : this.state.images.map((value, index) => {
+                console.log({ index }, { value });
+                // return [<div className="carousel-item active"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
+                if (index === 0) {
+                  console.log("IMAGE1: ");
+                  console.log("VALUE: ", { value });
+                  return [<div className="carousel-item active"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
+                }
+                return [<div className="carousel-item"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
+              })}
+
+              {/* <div className="carousel-item active">
                 <img className="carousel-image d-block w-100" src={bike1} alt="First slide"></img>
               </div>
               <div className="carousel-item">
@@ -50,7 +73,7 @@ export default class Listing extends React.Component {
               </div>
               <div className="carousel-item">
                 <img className="carousel-image d-block w-100" src={bike3} alt="Third slide"></img>
-              </div>
+              </div> */}
             </div>
             <a className="carousel-control-prev" href="#listingCarousel" role="button" data-slide="prev">
               <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -96,7 +119,7 @@ export default class Listing extends React.Component {
           </div>
 
         </section>
-      </div>
+      </div >
     )
   }
 
@@ -118,7 +141,8 @@ export default class Listing extends React.Component {
           loading: false,
           price: data['price'],
           name: data['name'],
-          desc: data['description']
+          desc: data['description'],
+          images: data['images']
         });
       });
   }

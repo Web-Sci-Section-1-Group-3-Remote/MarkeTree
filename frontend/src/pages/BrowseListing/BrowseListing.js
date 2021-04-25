@@ -9,6 +9,17 @@ import './BrowseListing.css';
 // import sofa from "../../images/images/sofa.jpg";
 // import textbook from "../../images/images/textbook.jpg";
 
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 export default class BrowseListing extends React.Component {
     info = [];
     componentDidMount() {
@@ -22,54 +33,64 @@ export default class BrowseListing extends React.Component {
                     <div className="topbarWrapper">
                         <nav id="topbar">
                             <div className="topbar-header">
-                                <h3>Categories</h3>
+                                <h3>Filter Categories</h3>
                             </div>
 
-                            <ul className="list-unstyled components">
-                                <p>Dummy Heading</p>
-                                <li className="active sidesM">
-                                    <Link to="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-                                        className="dropdown-toggle">Home</Link>
-                                    <ul className="collapse list-unstyled" id="homeSubmenu">
-                                        <li>
-                                            <Link to="#1">Home 1</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#2">Home 2</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#3">Home 3</Link>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li className="sidesM">
-                                    <Link to="#">About</Link>
-                                </li>
-                                <li className="sidesM">
-                                    <Link to="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
-                                        className="dropdown-toggle">Pages</Link>
-                                    <ul className="collapse list-unstyled" id="pageSubmenu">
-                                        <li>
-                                            <Link to="#1">Page 1</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#2">Page 2</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="#3">Page 3</Link>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li className="sidesM">
-                                    <Link to="#1">Portfolio</Link>
-                                </li>
-                                <li className="sidesM">
-                                    <Link to="#1">Contact</Link>
-                                </li>
-                            </ul>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("School Supplies"); }}>School Supplies</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Dorm Supplies"); }}>Dorm Supplies</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Mini Home Appliances"); }}>Mini Home Appliances</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("COVID-19 Supplies"); }}>COVID-19 Supplies</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Clothes"); }}>Clothes</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Event"); }}>Event</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Sporting"); }}>Sporting</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Games"); }}>Games</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Computers/Electronics"); }}>Computers/Electronics</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Tools"); }}>Tools</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Autos"); }}>Autos</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Apartments/Renting"); }}>Apartments/Renting</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Shoes"); }}>Shoes</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Services"); }}>Services</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Pets"); }}>Pets</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Phones"); }}>Phones</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Bicycles"); }}>Bicycles</Link>
+                            </nav>
+                            <nav className="sidesM">
+                                <Link onClick={() => { this.filterListing("Makeup"); }}>Makeup</Link>
+                            </nav>
                         </nav>
-
-
                     </div>
 
 
@@ -134,22 +155,25 @@ export default class BrowseListing extends React.Component {
         for (let i = Object.keys(data).length - 1; i >= 0; i--) {
             let id = data[i]['listing_id'];
             let name = data[i]['name'];
+            let category = data[i]['category'];
             let description = data[i]['description'];
             let images = data[i]['images'];
             let price = data[i]['price'];
             this.info.push({
                 name: name,
                 description: description,
+                category: category,
                 price: price
             });
 
-            let imageSrc = images.length > 0 ? images[0] : 'http://memes.elipzer.com/memes/33.jpg';
+            let imageSrc = images.length > 0 ? images[0] : 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mario-kart-for-wii-u/8/87/Mk8item19.png?width=1280';
 
             html += `<a href='http://localhost:3000/listing?id=${id}'>
                     <div class="singleListing">
                         <img src=${imageSrc} alt="screen readers">
                         <p class="listingName text-center">${name}</p>
                         <p class="listingPrice text-center color">&#36;${price}</p>
+                        <p class="listingPrice text-center color">${category}</p>
                         <p class="listingDesc">${description}</p>
                     </div>
                 </a>`;

@@ -167,6 +167,7 @@ export default class Event extends React.Component {
                                 <div class="event-right">
                                     <h3 class="event-title">${data[i]['event_name']}</h3>
                                     <div class="event-description">${data[i]['event_description']}</div>
+                                    <p class="location">The location is: ${data[i]['event_location']}</p>
 
                                     <div class="event-timing">
                                        ${data[i]['event_hour']}:${data[i]['event_min']}

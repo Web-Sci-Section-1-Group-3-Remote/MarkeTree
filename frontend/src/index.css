@@ -8,7 +8,7 @@ body {
 }
 
 .jumbotron {
-  border-radius: 0 !important; /* fuck you bootstrap */
+  border-radius: 0 !important;
 }
 
 .jumbotron .row {
@@ -21,6 +21,6 @@ body {
 }
 
 .jumbotron .inner img {
-  margin: 0 !important; /* fuck you bootstrap */
-  max-height: 250px !important; /* fuck you bootstrap */
+  margin: 0 !important;
+  max-height: 250px !important;
 }

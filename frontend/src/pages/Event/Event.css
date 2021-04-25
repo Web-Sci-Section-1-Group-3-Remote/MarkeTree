@@ -93,6 +93,10 @@
   padding-right: 8px;
 }
 
+.location {
+  color: green;
+}
+
 @media (max-width: 800px) {
   .event {
     flex-direction: column;
@@ -110,5 +114,11 @@
 
   .event .event-left .event-date {
     padding: 10px 0;
+  }
+
+  .allEvent {
+    clear: both;
+    font-size: 15px;
+    margin-right: 1em;
   }
 }

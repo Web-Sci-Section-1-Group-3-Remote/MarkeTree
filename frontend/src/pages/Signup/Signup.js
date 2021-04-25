@@ -66,7 +66,7 @@ export default class Signup extends React.Component {
                         </div>
 
                         <div className="col-12 text-center">
-                            <button type="submit" className="btn btn-success create" onClick={() => { this.userSignUp(); }}>Submit</button>
+                            <button type="submit" className="btn btn-success create" onClick={() => { this.userSignUp(); }}>SignUp</button>
                         </div>
 
                     </div>

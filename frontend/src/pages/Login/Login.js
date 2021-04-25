@@ -58,8 +58,10 @@ export default class Login extends React.Component {
                             <input type="password" id="passwordInput" className="form-control"></input>
                         </div>
                         <div className="col-12 text-center">
-                            <button type="submit" className="btn btn-success create" onClick={() => { this.login(); }}>Submit</button>
+                            <button type="submit" className="btn btn-success create" onClick={() => { this.login(); }}>Login</button>
                         </div>
+
+
                     </div>
 
 
@@ -85,8 +87,18 @@ export default class Login extends React.Component {
         });
 
         let data = await response.json();
-        let cookie = data.cookie;
+        if (data.err) {
+            alert(data.err);
+        } else {
+            let cookie = data.cookie;
 
-        setCookie('user-cookie', cookie);
+            setCookie(username, cookie, 1);
+        }
+        if (getCookie(username) !== "") {
+            window.location.href = "http://localhost:3000/browseListing";
+        } else {
+            window.location.href = "http://localhost:3000/login";
+        }
     }
+
 }

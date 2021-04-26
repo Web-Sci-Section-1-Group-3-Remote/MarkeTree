@@ -91,6 +91,7 @@ export default class BrowseListing extends React.Component {
                                 <Link onClick={() => { this.filterListing("Makeup"); }}>Makeup</Link>
                             </nav>
                         </nav>
+                        <input id="itemSearch" onKeyUp={() => { this.searchListings(); }} type="text" placeholder="Search for an item"></input>
                     </div>
 
 
@@ -149,7 +150,6 @@ export default class BrowseListing extends React.Component {
     }
 
     displayData(data) {
-        console.log(data, data);
         let html = `<div id="listingItem" class="container-fluid">
                         <div class="row browse">`;
         for (let i = Object.keys(data).length - 1; i >= 0; i--) {
@@ -209,5 +209,26 @@ export default class BrowseListing extends React.Component {
             .then(data => {
                 this.displayData(data);
             });
+    }
+
+    searchListings() {
+        // Declare variables
+        var input, filter, list, listings, p, i, txtValue;
+        input = document.getElementById("itemSearch");
+        filter = input.value.toUpperCase();
+        list = document.getElementById("listingItem");
+        listings = list.getElementsByClassName("singleListing");
+    
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < listings.length; i++) {
+            p = listings[i].getElementsByTagName("p")[0];
+            txtValue = p.textContent || p.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                listings[i].style.display = "";
+            } else {
+                listings[i].style.display = "none";
+            }
+            // Reposition footer as needed based on element removal/addition
+        }
     }
 }

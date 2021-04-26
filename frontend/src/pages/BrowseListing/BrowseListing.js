@@ -165,8 +165,10 @@ export default class BrowseListing extends React.Component {
                 category: category,
                 price: price
             });
-
-            let imageSrc = images.length > 0 ? images[0] : 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mario-kart-for-wii-u/8/87/Mk8item19.png?width=1280';
+            let imageSrc = 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mario-kart-for-wii-u/8/87/Mk8item19.png?width=1280'
+            if(images && images.length > 0){
+                imageSrc = images[0];
+            }
 
             html += `<a href='http://localhost:3000/listing?id=${id}'>
                     <div class="singleListing">
@@ -188,6 +190,18 @@ export default class BrowseListing extends React.Component {
 
     async browseListing() {
         fetch("http://localhost:3030/browse-listing", {
+            method: 'GET',
+            mode: 'cors'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.displayData(data);
+            });
+    }
+
+    async filterListing(cat) {
+        console.log(cat);
+        fetch("http://localhost:3030/filter-listing/" + cat, {
             method: 'GET',
             mode: 'cors'
         })

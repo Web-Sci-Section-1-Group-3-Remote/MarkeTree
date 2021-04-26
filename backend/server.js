@@ -6,7 +6,7 @@ const { MongoClient } = require('mongodb');
 const uuidv4 = require('uuid').v4;
 const cors = require('cors');
 const fs = require("fs");
-const multer = require("multer");
+
 
 const app = express();
 const port = 3030;
@@ -397,13 +397,18 @@ app.get('/browse-listing', async (req, res) => {
   }
 
 })
+
 //Filter Listing API
-app.get('/filter-listing:category', async (req, res) => {
+app.get('/filter-listing/:cat', async (req, res) => {
   await ensureConnection();
   try {
+    let cat = req.params.cat;
+    console.log(cat);
     let db = client.db('MarkeTree');
-    let collection = db.collection('Listings');
-    let document = await collection.find()
+    let collection = db.collection('Listings')
+    let document = await collection.find({ category: cat });
+    let listings = await document.toArray();
+    res.send(listings);
   } catch (e) {
     console.error('Unable to search database', e);
   }

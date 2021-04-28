@@ -34,6 +34,7 @@ function getCookie(name) {
 }
 
 export default class Login extends React.Component {
+
     render() {
         return (
             <div>
@@ -95,7 +96,9 @@ export default class Login extends React.Component {
             setCookie(username, cookie, 1);
         }
         if (getCookie(username) !== "") {
-            window.location.href = "http://localhost:3000/browseListing";
+            //window.location.href = "http://localhost:3000/browseListing";
+            console.log(getCookie(username));
+            console.log(document.cookie);
         } else {
             window.location.href = "http://localhost:3000/login";
         }

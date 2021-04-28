@@ -101,7 +101,7 @@ export default class Listing extends React.Component {
 
             <section id="paymentButtons">
               {console.log("STATE: ", this.state)}
-              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc} />)}
+              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc} seller={this.state.seller} id={this.state.id}/>)}
             </section>
           </div>
 

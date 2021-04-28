@@ -378,7 +378,7 @@ app.get('/browse-listing', async (req, res) => {
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Listings');
-    let document = await collection.find();
+    let document = await collection.find({buyer: null});
     let listings = await document.toArray();
 
     for (let listing of listings) {
@@ -442,7 +442,7 @@ app.get('/get-listing/:id', async (req, res) => {
     } else {
       document.images = [];
     }
-    console.log('giving back id#', document.id);
+    console.log('giving back id#', document.listing_id);
     res.json(document);
   } catch (e) {
     console.error('Unable to search database', e);
@@ -453,30 +453,42 @@ app.get('/get-listing/:id', async (req, res) => {
 
 app.post('/rate-user', async (req, res) => {
 
-  let username = req.body.username;
-  let seller = req.body.seller;
-  let rating = req.body.rating;
-  let listingid = req.body.id;
+  let username = req.body.ratingData.username;
+  let seller = req.body.ratingData.seller;
+  let rating = req.body.ratingData.rating;
+  let listingid = req.body.ratingData.id;
 
+  console.log("BODY: ",req.body);
 
   await ensureConnection();
   try {
     let db = client.db('MarkeTree');
     let userscollection = db.collection('Users');
     let listingscollection = db.collection('Listings');
-    console.log('params', req.params);
-    let id = req.params.id;
-    listingscollection.findOneAndUpdate();
-    let document = await collection.findOne({ listing_id: id });
-    if (fs.existsSync('../frontend/src/images/' + id + '/images.img')) {
-      let imagesText = fs.readFileSync('../frontend/src/images/' + id + '/images.img').toString();
-      let images = imagesText.split('\n').filter(e => e != '');
-      document.images = images;
-    } else {
-      document.images = [];
+
+    console.log(seller);
+    console.log(listingid);
+    // listingscollection.findOneAndUpdate();
+    let listingdocument = await listingscollection.findOne({ listing_id: listingid });
+    let userdocument = await userscollection.findOne({username: seller});
+
+    let noratings = userdocument.number_ratings;
+    let currentrating = userdocument.user_rating;
+
+    if(currentrating == null){
+      currentrating = 0;
     }
-    console.log('giving back id#', document.id);
-    res.json(document);
+    
+    noratings = parseInt(noratings + 1);
+    currentrating = parseInt((currentrating + rating) / noratings);
+    console.log(currentrating, noratings);
+    let newvalues = { $set: { buyer: username } };
+    listingscollection.updateOne({ listing_id: listingid }, newvalues);
+    newvalues = { $set: { user_rating: currentrating, number_ratings: noratings } };
+    userscollection.updateOne({ username: seller }, newvalues);
+    
+    // console.log('giving back id#', document.id);
+    // res.json(document);
   } catch (e) {
     console.error('Unable to search database', e);
     res.json({ err: 'unable to search db' });

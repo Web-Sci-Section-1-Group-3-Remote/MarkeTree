@@ -48,12 +48,13 @@ function Product({ props }) {
         return (
             <div>
                 You have bought {props.name} Rate User:
-                <button type="submit" className="btn btn-success create"> 0 </button>
-                <button type="submit" className="btn btn-success create"> 1 </button>
-                <button type="submit" className="btn btn-success create"> 2 </button>
-                <button type="submit" className="btn btn-success create"> 3 </button>
-                <button type="submit" className="btn btn-success create"> 4 </button>
-                <button type="submit" className="btn btn-success create"> 5 </button>
+                {console.log("PROPS: ", props)}
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 0, props.id); }}> 0 </button>
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 1, props.id); }}> 1 </button>
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 2, props.id); }}> 2 </button>
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 3, props.id); }}> 3 </button>
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 4, props.id); }}> 4 </button>
+                <button type="submit" className="btn btn-success create" onClick={() => {rateUser(props.seller, 5, props.id); }}> 5 </button>
             </div>
         );
     }
@@ -67,6 +68,7 @@ function Product({ props }) {
             <div ref={paypalRef} />
         </div>
     );
+
 }
 
 function getCookie(name) {
@@ -80,14 +82,34 @@ function getCookie(name) {
     return null;
 }
 
-function rateUser(seller, rating, id) {
+const rateUser = async(seller, rating, id) => {
+    console.log(seller, rating, id);
+    let token = getCookie('usertoken');
 
+    let response = await fetch("http://localhost:3030/api/verify-user", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                cookie: token
+            }),
+        });
+    let data = await response.json();
+
+    console.log('verify data:', data);
+
+    let username = data.user.username;
+    console.log("USERNAMESELLER: ", username);
     const ratingData = {
-        username: getCookie('username'),
+        username: username,
         seller: seller,
         rating: rating,
         id: id
     }
+
+    console.log("RATINGDATA: ", ratingData);
 
     fetch("http://localhost:3030/rate-user", {
         method: 'POST',
@@ -108,6 +130,18 @@ function buttonMaker(props) {
     return (
         <Product props={props} />
     );
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    
 }
 
 export default buttonMaker;

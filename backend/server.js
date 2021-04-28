@@ -229,7 +229,7 @@ app.post('/api/verify-user', async (req, res) => {
     console.log('bad cookie: ', cookie);
     res.json({ err: 'unable to verify user' });
   } else {
-    res.json({ success: true, user: outputUser });
+    res.json({ success: true, user: user });
   }
 });
 

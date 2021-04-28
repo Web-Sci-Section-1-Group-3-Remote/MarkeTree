@@ -16,6 +16,8 @@ export default class Listing extends React.Component {
       price: null,
       name: null,
       desc: null,
+      id: null,
+      seller: null,
       images: null
     };
 
@@ -48,32 +50,17 @@ export default class Listing extends React.Component {
                 return <li data-target="#carouselExampleIndicators" data-slide-to={index}></li>
               })}
 
-              {/* <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> */}
             </ol>
             <div className="carousel-inner">
 
               {this.state.loading ? (null) : this.state.images.map((value, index) => {
                 console.log({ index }, { value });
-                // return [<div className="carousel-item active"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
                 if (index === 0) {
-                  console.log("IMAGE1: ");
-                  console.log("VALUE: ", { value });
                   return [<div className="carousel-item active"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
                 }
                 return [<div className="carousel-item"><img className="carousel-image d-block w-100" src={value} alt="First slide"></img></div>];
               })}
 
-              {/* <div className="carousel-item active">
-                <img className="carousel-image d-block w-100" src={bike1} alt="First slide"></img>
-              </div>
-              <div className="carousel-item">
-                <img className="carousel-image d-block w-100" src={bike2} alt="Second slide"></img>
-              </div>
-              <div className="carousel-item">
-                <img className="carousel-image d-block w-100" src={bike3} alt="Third slide"></img>
-              </div> */}
             </div>
             <a className="carousel-control-prev" href="#listingCarousel" role="button" data-slide="prev">
               <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -109,7 +96,7 @@ export default class Listing extends React.Component {
 
             <section id="price" className="listingDesc">
 
-              {this.state.loading ? (null) : (this.state.price)}
+              {this.state.loading ? (null) : ("$" + this.state.price)}
             </section>
 
             <section id="paymentButtons">
@@ -137,12 +124,13 @@ export default class Listing extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("DATA:", data);
         this.setState({
           loading: false,
           price: data['price'],
           name: data['name'],
           desc: data['description'],
+          id: data['listing_id'],
+          seller: data['seller'],
           images: data['images']
         });
       });

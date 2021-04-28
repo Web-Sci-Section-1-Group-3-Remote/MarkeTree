@@ -56,10 +56,10 @@ export default class CreateListing extends React.Component {
                                     <option>Event</option>
                                     <option>Sporting</option>
                                     <option>Games</option>
-                                    <option>Computers/Electronics</option>
+                                    <option>Electronics</option>
                                     <option>Tools</option>
                                     <option>Autos</option>
-                                    <option>Apartments/Renting</option>
+                                    <option>Renting</option>
                                     <option>Shoes</option>
                                     <option>Services</option>
                                     <option>Pets</option>
@@ -163,6 +163,6 @@ export default class CreateListing extends React.Component {
 
         let listing_id = data.listing_id;
 
-        window.href = '/listing?id=' + listing_id;
+        window.location.href = '/listing?id=' + listing_id;
     }
 }

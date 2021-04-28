@@ -359,7 +359,7 @@ app.post('/api/post-listing', async (req, res) => {
     }
     newPath += 'images.img';
     fs.writeFileSync(newPath, bigText);
-    console.log('writing base64Images to ' + newPath, bigText);
+    console.log('writing base64Images to ' + newPath, bigText.length, 'bytes');
 
     console.log('responding to post-listing with', { listing_id: id });
 
@@ -367,6 +367,7 @@ app.post('/api/post-listing', async (req, res) => {
 
   } catch (e) {
     console.error('Unable to search database', e);
+    res.json({ err: 'unable to search database' });
   }
 
 })
@@ -408,6 +409,17 @@ app.get('/filter-listing/:cat', async (req, res) => {
     let collection = db.collection('Listings');
     let document = await collection.find({ category: cat });
     let listings = await document.toArray();
+    for (let listing of listings) {
+      if (fs.existsSync('../frontend/src/images/' + listing.listing_id + '/images.img')) {
+        let imagesText = fs.readFileSync('../frontend/src/images/' + listing.listing_id + '/images.img').toString();
+        let images = imagesText.split('\n').filter(e => e != '');
+        listing.images = images;
+      } else {
+        for (let listing of listings) {
+          listing.images = [];
+        }
+      }
+    }
     res.send(listings);
   } catch (e) {
     console.error('Unable to search database', e);
@@ -437,6 +449,38 @@ app.get('/get-listing/:id', async (req, res) => {
     res.json({ err: 'unable to search db' });
   }
 
+});
+
+app.post('/rate-user', async (req, res) => {
+
+  let username = req.body.username;
+  let seller = req.body.seller;
+  let rating = req.body.rating;
+  let listingid = req.body.id;
+
+
+  await ensureConnection();
+  try {
+    let db = client.db('MarkeTree');
+    let userscollection = db.collection('Users');
+    let listingscollection = db.collection('Listings');
+    console.log('params', req.params);
+    let id = req.params.id;
+    listingscollection.findOneAndUpdate();
+    let document = await collection.findOne({ listing_id: id });
+    if (fs.existsSync('../frontend/src/images/' + id + '/images.img')) {
+      let imagesText = fs.readFileSync('../frontend/src/images/' + id + '/images.img').toString();
+      let images = imagesText.split('\n').filter(e => e != '');
+      document.images = images;
+    } else {
+      document.images = [];
+    }
+    console.log('giving back id#', document.id);
+    res.json(document);
+  } catch (e) {
+    console.error('Unable to search database', e);
+    res.json({ err: 'unable to search db' });
+  }
 });
 
 // Listen to the port 3000

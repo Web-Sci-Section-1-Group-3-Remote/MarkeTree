@@ -62,8 +62,8 @@ export default class BrowseListing extends React.Component {
                             <nav meta-filter="Games" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Games"); }}>Games</Link>
                             </nav>
-                            <nav meta-filter="Computers/Electronics" className="sidesM">
-                                <Link onClick={() => { this.filterListing("Computers/Electronics"); }}>Computers/Electronics</Link>
+                            <nav meta-filter="Electronics" className="sidesM">
+                                <Link onClick={() => { this.filterListing("Electronics"); }}>Electronics</Link>
                             </nav>
                             <nav meta-filter="Tools" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Tools"); }}>Tools</Link>
@@ -71,8 +71,8 @@ export default class BrowseListing extends React.Component {
                             <nav meta-filter="Autos" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Autos"); }}>Autos</Link>
                             </nav>
-                            <nav meta-filter="Apartments/Renting" className="sidesM">
-                                <Link onClick={() => { this.filterListing("Apartments/Renting"); }}>Apartments/Renting</Link>
+                            <nav meta-filter="Renting" className="sidesM">
+                                <Link onClick={() => { this.filterListing("Renting"); }}>Renting</Link>
                             </nav>
                             <nav meta-filter="Shoes" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Shoes"); }}>Shoes</Link>

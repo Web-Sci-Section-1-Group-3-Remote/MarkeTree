@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Product.css';
 
-function Product({props}) {
+function Product({ props }) {
     const [paidFor, setPaidFor] = useState(false);
     const [error, setError] = useState(null);
     const paypalRef = useRef();
 
     const product = useState(props);
-    console.log("MAKING: ",props);
+    console.log("MAKING: ", props);
 
     useEffect(() => {
         window.paypal
@@ -47,7 +47,13 @@ function Product({props}) {
     if (paidFor) {
         return (
             <div>
-                <h1>Congrats, you just bought {props.name}!</h1>
+                You have bought {props.name} Rate User:
+                <button type="submit" className="btn btn-success create"> 0 </button>
+                <button type="submit" className="btn btn-success create"> 1 </button>
+                <button type="submit" className="btn btn-success create"> 2 </button>
+                <button type="submit" className="btn btn-success create"> 3 </button>
+                <button type="submit" className="btn btn-success create"> 4 </button>
+                <button type="submit" className="btn btn-success create"> 5 </button>
             </div>
         );
     }
@@ -61,6 +67,41 @@ function Product({props}) {
             <div ref={paypalRef} />
         </div>
     );
+}
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function rateUser(seller, rating, id) {
+
+    const ratingData = {
+        username: getCookie('username'),
+        seller: seller,
+        rating: rating,
+        id: id
+    }
+
+    fetch("http://localhost:3030/rate-user", {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ratingData
+        }),
+    })
+        .then(response => response.json())
+
+    window.location.href = '/dashboard';
 }
 
 function buttonMaker(props) {

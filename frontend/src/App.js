@@ -10,7 +10,7 @@ import Help from './pages/Help/Help'
 import CreateListing from './pages/CreateListing/CreateListing';
 import BrowseListing from './pages/BrowseListing/BrowseListing';
 import Listing from './pages/Listing/Listing';
-import Dashboard from'./pages/Dashboard/Dashboard';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 import './App.css';
 
@@ -30,7 +30,7 @@ class App extends React.Component {
           <Route path='/create' component={CreateListing} />
           <Route path='/browseListing' component={BrowseListing} />
           <Route path='/listing' component={Listing} />
-          <Route path='/dashboard' component={Dashboard}/>
+          <Route path='/dashboard' component={Dashboard} />
 
         </div>
         <Footer />

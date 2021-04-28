@@ -9,7 +9,16 @@ import "mdbreact/dist/css/mdb.css";
 
 import create from "../../images/createListing.jpg"
 
-
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
 export default class CreateListing extends React.Component {
     render() {
@@ -30,19 +39,7 @@ export default class CreateListing extends React.Component {
                         <h2 className="what">Create Listing</h2>
                         <hr></hr>
 
-                        <form className="row g-3" enctype='multipart/form-data'>
-                            <div className="col-4">
-                                <label htmlFor="inputName" className="form-label">Name</label>
-                                <input type="name" className="form-control" id="inputName" required></input>
-                            </div>
-                            <div className="col-4">
-                                <label htmlFor="inputEmail" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="inputEmail"></input>
-                            </div>
-                            <div className="col-4">
-                                <label htmlFor="inputZip" className="form-label">ZIP Code</label>
-                                <input type="zip" className="form-control" id="inputZip"></input>
-                            </div>
+                        <div className="row g-3">
                             <div className="col-md-8">
                                 <label htmlFor="input" className="form-label">Item</label>
                                 <input type="text" className="form-control" id="inputItem" placeholder="FOCS Textbook" required></input>
@@ -93,7 +90,7 @@ export default class CreateListing extends React.Component {
                             <div className="col-12 text-center">
                                 <button type="submit" className="btn btn-primary create" onClick={() => { this.createListing(); }}>Submit</button>
                             </div>
-                        </form>
+                        </div>
 
                     </div>
 
@@ -116,13 +113,8 @@ export default class CreateListing extends React.Component {
 
 
     async createListing() {
-        let username = document.getElementById("inputName").value;
-        let email = document.getElementById("inputEmail").value;
-        let zip = document.getElementById("inputZip").value;
         let item = document.getElementById("inputItem").value;
-
         let category = document.getElementById("inputCategory").value;
-
         let description = document.getElementById("inputDescription").value;
         let price = document.getElementById("inputPrice").value;
 
@@ -146,19 +138,16 @@ export default class CreateListing extends React.Component {
         }
 
         const listingData = {
-            username: username,
-            email: email,
-            zip: zip,
+            username: getCookie('username'),
             item: item,
             category: category,
             description: description,
             price: price,
             images: images
         }
-        console.log(listingData);
-        alert('yay');
+        console.log('listingdata:', listingData);
 
-        fetch("http://localhost:3030/api/post-listing", {
+        let response = await fetch("http://localhost:3030/api/post-listing", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -166,8 +155,14 @@ export default class CreateListing extends React.Component {
             body: JSON.stringify({
                 listingData
             }),
-        })
-            .then(response => response.json())
-            .then(data => { })
+        });
+        console.log('waiting for json');
+        let data = await response.json();
+
+        console.log('json data', data);
+
+        let listing_id = data.listing_id;
+
+        window.href = '/listing?id=' + listing_id;
     }
 }

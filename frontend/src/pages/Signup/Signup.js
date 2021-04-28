@@ -108,6 +108,9 @@ export default class Signup extends React.Component {
         let data = await response.json();
         let cookie = data.cookie;
 
-        setCookie('user-cookie', cookie);
+        setCookie('username', username);
+        setCookie('usertoken', cookie);
+
+        window.location.href = '/dashboard';
     }
 }

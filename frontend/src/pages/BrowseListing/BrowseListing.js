@@ -31,63 +31,65 @@ export default class BrowseListing extends React.Component {
                 <HeaderWithLogin />
                 <div id="listings">
                     <div className="topbarWrapper">
+                        <div className="topbar-header">
+                            <h3>Filter Categories</h3>
+                        </div>
                         <nav id="topbar">
-                            <div className="topbar-header">
-                                <h3>Filter Categories</h3>
-                            </div>
-
-                            <nav className="sidesM">
+                            <nav meta-filter="All" className="sidesM">
+                                <Link onClick={() => { this.browseListing(); }}>All</Link>
+                            </nav>
+                            <nav meta-filter="School Supplies" className="sidesM">
                                 <Link onClick={() => { this.filterListing("School Supplies"); }}>School Supplies</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Dorm Supplies" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Dorm Supplies"); }}>Dorm Supplies</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Mini Home Appliances" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Mini Home Appliances"); }}>Mini Home Appliances</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="COVID-19 Supplies" className="sidesM">
                                 <Link onClick={() => { this.filterListing("COVID-19 Supplies"); }}>COVID-19 Supplies</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Clothes" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Clothes"); }}>Clothes</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Event" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Event"); }}>Event</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Sporting" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Sporting"); }}>Sporting</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Games" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Games"); }}>Games</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Computers/Electronics" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Computers/Electronics"); }}>Computers/Electronics</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Tools" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Tools"); }}>Tools</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Autos" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Autos"); }}>Autos</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Apartments/Renting" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Apartments/Renting"); }}>Apartments/Renting</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Shoes" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Shoes"); }}>Shoes</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Services" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Services"); }}>Services</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Pets" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Pets"); }}>Pets</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Phones" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Phones"); }}>Phones</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Bicycles" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Bicycles"); }}>Bicycles</Link>
                             </nav>
-                            <nav className="sidesM">
+                            <nav meta-filter="Makeup" className="sidesM">
                                 <Link onClick={() => { this.filterListing("Makeup"); }}>Makeup</Link>
                             </nav>
                         </nav>
@@ -98,52 +100,6 @@ export default class BrowseListing extends React.Component {
                     <div id="entire">
 
                     </div>
-
-                    {/* <script>{this.browseListing()}</script> */}
-                    {/* <button type="submit" className="btn btn-primary create" onClick={() => { this.browseListing(); }}>Submit</button> */}
-                    {/* <div id="listingItem" className="container">
-
-                        <div className="row">
-
-                            <div className="singleListing col-2 item-show">
-                                <Link to="/listing"><img src={bike1} className="sub-image" height="100" width="150"
-                                    alt="Certified Users"></img></Link>
-                                <p className="text-center">Super Bike</p>
-                                <p className="text-center">This is a brand new bike, you can ride him whereever you want</p>
-
-                            </div>
-
-                            <div className="singleListing col-2 item-show">
-                                <Link to="/listing"><img src={bike2} className="sub-image" height="100" width="150"
-                                    alt="Certified Users"></img></Link>
-                                <p className="text-center">Awesome Bike</p>
-                                <p className="text-center">Cool bike continues</p>
-
-                            </div>
-
-                            <div className="singleListing col-2 item-show">
-                                <Link to="/listing"><img src={bike3} className="sub-image" height="100" width="150"
-                                    alt="Certified Users"></img></Link>
-                                <p className="text-center">Jesus Bike</p>
-                                <p className="text-center">Cool bike continues</p>
-
-                            </div>
-
-                            <div className="singleListing col-2 item-show">
-                                <img src={sofa} className="sub-image" height="100" width="150" alt="Certified Users"></img>
-                                <p className="text-center">Cute sofa</p>
-                                <p className="text-center">Enjoy your dayoff with this</p>
-                            </div>
-
-                            <div className="singleListing col-2 item-show">
-                                <img src={textbook} className="sub-image" height="100" width="150"
-                                    alt="Certified Users"></img>
-                                <p className="text-center">Student's need</p>
-                                <p className="text-center">All textbook you need in one package</p>
-                            </div>
-
-                        </div>
-                    </div> */}
                 </div>
             </div>
         )
@@ -166,7 +122,7 @@ export default class BrowseListing extends React.Component {
                 price: price
             });
             let imageSrc = 'https://oyster.ignimgs.com/mediawiki/apis.ign.com/mario-kart-for-wii-u/8/87/Mk8item19.png?width=1280'
-            if(images && images.length > 0){
+            if (images && images.length > 0) {
                 imageSrc = images[0];
             }
 
@@ -189,6 +145,11 @@ export default class BrowseListing extends React.Component {
 
 
     async browseListing() {
+        let navs = document.querySelectorAll('#topbar nav');
+        for (let nav of navs) {
+            nav.classList.remove('active');
+        }
+        document.querySelector('#topbar nav[meta-filter="All"]').classList.add('active');
         fetch("http://localhost:3030/browse-listing", {
             method: 'GET',
             mode: 'cors'
@@ -200,6 +161,12 @@ export default class BrowseListing extends React.Component {
     }
 
     async filterListing(cat) {
+        let navs = document.querySelectorAll('#topbar nav');
+        for (let nav of navs) {
+            nav.classList.remove('active');
+        }
+        document.querySelector('#topbar nav[meta-filter="' + cat + '"]').classList.add('active');
+
         console.log(cat);
         fetch("http://localhost:3030/filter-listing/" + cat, {
             method: 'GET',
@@ -218,7 +185,7 @@ export default class BrowseListing extends React.Component {
         filter = input.value.toUpperCase();
         list = document.getElementById("listingItem");
         listings = list.getElementsByClassName("singleListing");
-    
+
         // Loop through all list items, and hide those who don't match the search query
         for (i = 0; i < listings.length; i++) {
             p = listings[i].getElementsByTagName("p")[0];

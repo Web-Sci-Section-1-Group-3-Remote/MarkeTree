@@ -119,7 +119,7 @@ export default class Listing extends React.Component {
           </div>
 
         </section>
-      </div >
+      </div>
     )
   }
 
@@ -129,7 +129,7 @@ export default class Listing extends React.Component {
     const urlParams = new URLSearchParams(queryString);
     let id = urlParams.get("id");
 
-    console.log(id);
+    console.log('id', id);
 
     fetch('http://localhost:3030/get-listing/' + id, {
       method: 'GET',
@@ -137,6 +137,7 @@ export default class Listing extends React.Component {
     })
       .then(response => response.json())
       .then(data => {
+        console.log("DATA:", data);
         this.setState({
           loading: false,
           price: data['price'],

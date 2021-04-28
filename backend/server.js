@@ -314,8 +314,6 @@ function readAndWriteFile(singleImg, newPath) {
 app.post('/api/post-listing', async (req, res) => {
   let message = req.body.listingData;
   let username = message.username;
-  let email = message.email;
-  let zip = message.zip;
   let item = message.item;
   let category = message.category;
   let description = message.description;
@@ -325,8 +323,7 @@ app.post('/api/post-listing', async (req, res) => {
   let time = 1;
 
   if (item == null || item == '' || category == null || category == ''
-    || email == null || email == '' || description == null ||
-    description == '' || price == null || price == '') {
+    || description == null || description == '' || price == null || price == '') {
     res.json('please fill out all fields');
     return;
   }
@@ -336,15 +333,14 @@ app.post('/api/post-listing', async (req, res) => {
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Listings');
-    let id = await collection.countDocuments();
+    let id = uuidv4();//await collection.countDocuments();
     let document = await collection.insertOne({
       listing_id: id,
       price: price,
-      location: zip,
       name: item,
       description: description,
       category: category,
-      seller: 1,
+      seller: username,
       buyer: null,
       time: time
     });
@@ -364,6 +360,10 @@ app.post('/api/post-listing', async (req, res) => {
     newPath += 'images.img';
     fs.writeFileSync(newPath, bigText);
     console.log('writing base64Images to ' + newPath, bigText);
+
+    console.log('responding to post-listing with', { listing_id: id });
+
+    res.json({ listing_id: id });
 
   } catch (e) {
     console.error('Unable to search database', e);
@@ -405,7 +405,7 @@ app.get('/filter-listing/:cat', async (req, res) => {
     let cat = req.params.cat;
     console.log(cat);
     let db = client.db('MarkeTree');
-    let collection = db.collection('Listings')
+    let collection = db.collection('Listings');
     let document = await collection.find({ category: cat });
     let listings = await document.toArray();
     res.send(listings);
@@ -420,10 +420,9 @@ app.get('/get-listing/:id', async (req, res) => {
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Listings');
+    console.log('params', req.params);
     let id = req.params.id;
-    id = parseInt(id);
     let document = await collection.findOne({ listing_id: id });
-    console.log('id', id, 'document', document);
     if (fs.existsSync('../frontend/src/images/' + id + '/images.img')) {
       let imagesText = fs.readFileSync('../frontend/src/images/' + id + '/images.img').toString();
       let images = imagesText.split('\n').filter(e => e != '');
@@ -431,18 +430,14 @@ app.get('/get-listing/:id', async (req, res) => {
     } else {
       document.images = [];
     }
-    res.send(document);
+    console.log('giving back id#', document.id);
+    res.json(document);
   } catch (e) {
     console.error('Unable to search database', e);
+    res.json({ err: 'unable to search db' });
   }
 
-})
-
-
-
-
-
-
+});
 
 // Listen to the port 3000
 app.listen(port, () => {

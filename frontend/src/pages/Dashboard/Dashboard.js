@@ -14,22 +14,42 @@ import transaction from "../../images/transaction.png";
 import quick_find from "../../images/quick-finding.png";
 import union from "../../images/union.jpg";
 
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
 export default class Dashboard extends React.Component {
-
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+          loading: true,
+          username: 'Loading...',
+          user_rating: 'Loading...'
+        };
+    }
+    
+    componentDidMount() {
+        window.addEventListener('load', this.verify());
+    }
 
     render() {
+        console.log('rendering with state', this.state);
+
         return (
             <div>
             <HeaderWithLogin />
             <section id="mainContent">
                 
-                <Jumbotron
-                    title="Hello, Username"
-                    slogan="Your rating: &#9733; 3.5"
-                    img={sale}
-                />
-                <button type="submit" className="btn btn-success create" onClick={() => { this.verify(); }}>Login</button>
+
+            {this.state.loading ? (null) : (<Jumbotron title = {"Hello, " + this.state.username} slogan= { "\u2605" + (this.state.user_rating || 'No Ratings')} img={sale}/>)}
     
                 <div className="background-yellow">
               
@@ -138,9 +158,9 @@ export default class Dashboard extends React.Component {
     }
 
     async verify() {
-        var cookie = document.cookie;
-        var temp=cookie.split('=');
-        var token = temp[1];
+        let username = getCookie('username');
+        let token = getCookie('usertoken');
+
         let response = await fetch("http://localhost:3030/api/verify-user", {
             method: 'POST',
             mode: 'cors',
@@ -151,8 +171,16 @@ export default class Dashboard extends React.Component {
                 cookie: token
             }),
         });
+        
         let data = await response.json();
-        console.log(data);
+
+        console.log('verify data:', data);
+        
+        this.setState({
+          loading: false,
+          username: data.user.username,
+          user_rating: data.user.user_rating,
+        });
 
     }
 }

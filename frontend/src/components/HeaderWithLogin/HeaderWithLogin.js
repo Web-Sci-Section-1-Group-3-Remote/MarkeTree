@@ -31,12 +31,25 @@ export default class HeaderWithLogin extends React.Component {
                             <li className="nav-item">
                                 <a className="nav-link" href="/browseListing">Browse Listing</a>
                             </li>
-
+                            <div className="btnlogin">
+                                <button className="btn my-2 my-sm-0 login login success" type="submit" onClick={() => { this.logout(); }}><a href="/" className="btnlogin">Log Out</a></button>
+                            </div>
                         </ul>
 
                     </div>
                 </nav>
-            </div >
+            </div>
         )
+    }
+    logout() {
+        var cookies = document.cookie.split(";");
+        console.log(cookies);
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            var eqPos = cookie.indexOf("=");
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
     }
 }

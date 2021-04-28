@@ -93,15 +93,10 @@ export default class Login extends React.Component {
         } else {
             let cookie = data.cookie;
 
-            setCookie(username, cookie, 1);
-        }
-        if (getCookie(username) !== "") {
-            //window.location.href = "http://localhost:3000/browseListing";
-            console.log(getCookie(username));
-            console.log(document.cookie);
-        } else {
-            window.location.href = "http://localhost:3000/login";
+            setCookie('username', username);
+            setCookie('usertoken', cookie);
+
+            window.location.href = '/dashboard';
         }
     }
-
 }

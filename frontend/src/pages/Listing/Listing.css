@@ -30,8 +30,6 @@
   height: auto;
   width: 100%;
   /*float: left;*/
-  padding-left: 2%;
-  padding-right: 1%;
   color: #000000;
   /* background-color: #343a40; */
   overflow-y: auto;
@@ -45,7 +43,7 @@
 }
 
 .listingDesc {
-  padding-bottom: 1%;
+  padding-bottom: 10px;
 }
 
 #paymentButtons {
@@ -55,4 +53,18 @@
 #productContainer {
   height: 20%;
   width: 20%;
+}
+
+#listingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#name {
+  max-width: 600px;
+}
+
+#listingText {
+  max-width: 600px;
 }

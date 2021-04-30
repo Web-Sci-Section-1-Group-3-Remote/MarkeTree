@@ -9,12 +9,13 @@ import help from "../../images/help.jpg"
 import auth_user from "../../images/auth-user.png";
 import used_item from "../../images/used-item.jpg";
 import book from "../../images/book.jpg";
+import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 
 export default class Help extends React.Component {
     render() {
         return (
             <div>
-                <Header />
+                <HeaderWithLogin />
                 <section id="mainContent">
                     <Jumbotron
                         title="Need Help"

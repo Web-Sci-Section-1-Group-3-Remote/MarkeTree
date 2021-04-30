@@ -58,8 +58,8 @@
 
 .singleListing img {
   width: 250px;
-  max-height: 250px;
-  object-fit: cover;
+  height: 250px;
+  object-fit: contain;
   margin-bottom: 10px;
 }
 

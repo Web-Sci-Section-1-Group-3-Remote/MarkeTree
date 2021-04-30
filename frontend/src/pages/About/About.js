@@ -6,10 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 
 import auth from "../../images/auth-user.png";
-import team from "../../images/team.png"
-import Anthony from "../../images/anthony.jpg"
-import Yanshen from "../../images/yanshen.jpg"
-
+import team from "../../images/team.png";
+import Anthony from "../../images/anthony.jpg";
+import Yanshen from "../../images/yanshen.jpg";
+import Bo from "../../images/Bo.jpg";
 
 export default class About extends React.Component {
     render() {
@@ -54,8 +54,8 @@ export default class About extends React.Component {
                                 </div>
 
                                 <div className="col-3 content-block">
-                                    <img src={auth} className="sub-image" height="180" width="180" alt="Certified Users"></img>
-                                    <h5 className="sub-section">Bo Lin</h5>
+                                    <img src={Bo} className="sub-image" height="180" width="180" alt="Certified Users"></img>
+                                    <h5 className="sub-section">Bolai Lin</h5>
                                     <p className="brief">
                                         Fast database god
                                     </p>

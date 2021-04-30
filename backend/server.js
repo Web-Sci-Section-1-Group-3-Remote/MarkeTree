@@ -407,7 +407,7 @@ app.get('/filter-listing/:cat', async (req, res) => {
     console.log(cat);
     let db = client.db('MarkeTree');
     let collection = db.collection('Listings');
-    let document = await collection.find({ category: cat });
+    let document = await collection.find({ category: cat, buyer: null });
     let listings = await document.toArray();
     for (let listing of listings) {
       if (fs.existsSync('../frontend/src/images/' + listing.listing_id + '/images.img')) {

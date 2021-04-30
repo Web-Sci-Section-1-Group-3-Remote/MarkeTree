@@ -129,10 +129,13 @@ export default class BrowseListing extends React.Component {
             html += `<a href='http://localhost:3000/listing?id=${id}'>
                     <div class="singleListing">
                         <img src=${imageSrc} alt="screen readers">
-                        <p class="listingName text-center">${name}</p>
-                        <p class="listingPrice text-center color">&#36;${price}</p>
-                        <p class="listingPrice text-center color">${category}</p>
-                        <p class="listingDesc">${description}</p>
+                        
+                        <p class="listingName text-center">${name.slice(0, 25)}</p>
+                        <div class="categories">
+                            <p class="listingPrice text-center color">&#36;${price}</p>
+                            <p class="listingType text-center color">${category}</p>
+                        </div>
+                        <p class="listingDesc">${description.slice(0, 60)}</p>
                     </div>
                 </a>`;
         }

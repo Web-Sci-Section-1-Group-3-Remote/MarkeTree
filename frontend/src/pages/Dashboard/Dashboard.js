@@ -32,7 +32,8 @@ export default class Dashboard extends React.Component {
         this.state = {
           loading: true,
           username: 'Loading...',
-          user_rating: 'Loading...'
+          user_rating: 'Loading...',
+          user_rating_count: 'Loading...',
         };
     }
     
@@ -49,7 +50,7 @@ export default class Dashboard extends React.Component {
             <section id="mainContent">
                 
 
-            {this.state.loading ? (null) : (<Jumbotron title = {"Hello, " + this.state.username} slogan= { "\u2605" + (this.state.user_rating || 'No Ratings')} img={sale}/>)}
+            {this.state.loading ? (null) : (<Jumbotron title = {"Hello, " + this.state.username} slogan= { "\u2605 " + (this.state.user_rating + ' (' + this.state.user_rating_count + ' ratings)' || 'No Ratings')} img={sale}/>)}
     
                 <div className="background-yellow">
               
@@ -180,6 +181,7 @@ export default class Dashboard extends React.Component {
           loading: false,
           username: data.user.username,
           user_rating: data.user.user_rating,
+          user_rating_count: data.user.number_ratings
         });
 
     }

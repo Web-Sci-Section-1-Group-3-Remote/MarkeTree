@@ -209,7 +209,7 @@ async function verifyCookie(cookie) {
         username: user.username,
         email: user.email,
         user_rating: user.user_rating,
-        number_rating: user.number_rating,
+        number_ratings: user.number_ratings,
         rpi_status: user.rpi_status,
       };
       return outputUser;
@@ -472,20 +472,21 @@ app.post('/rate-user', async (req, res) => {
     let listingdocument = await listingscollection.findOne({ listing_id: listingid });
     let userdocument = await userscollection.findOne({username: seller});
 
-    let noratings = userdocument.number_ratings;
-    let currentrating = userdocument.user_rating;
+    let noratings = parseInt(userdocument.number_ratings);
+    let currentrating = parseFloat(userdocument.user_rating);
 
     if(currentrating == null){
       currentrating = 0;
     }
     
-    noratings = parseInt(noratings + 1);
-    currentrating = parseInt((currentrating + rating) / noratings);
-    console.log(currentrating, noratings);
+    currentrating = parseFloat((currentrating * noratings + rating) / (noratings + 1));
+    console.log('new rating:', currentrating, noratings + 1);
     let newvalues = { $set: { buyer: username } };
     listingscollection.updateOne({ listing_id: listingid }, newvalues);
-    newvalues = { $set: { user_rating: currentrating, number_ratings: noratings } };
+    newvalues = { $set: { user_rating: currentrating, number_ratings: noratings + 1 } };
     userscollection.updateOne({ username: seller }, newvalues);
+
+    res.json({ success: true });
     
     // console.log('giving back id#', document.id);
     // res.json(document);

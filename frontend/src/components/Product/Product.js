@@ -83,6 +83,8 @@ function getCookie(name) {
 }
 
 const rateUser = async(seller, rating, id) => {
+    console.log('rating user', seller, rating, id);
+
     console.log(seller, rating, id);
     let token = getCookie('usertoken');
 
@@ -111,7 +113,7 @@ const rateUser = async(seller, rating, id) => {
 
     console.log("RATINGDATA: ", ratingData);
 
-    fetch("http://localhost:3030/rate-user", {
+    await fetch("http://localhost:3030/rate-user", {
         method: 'POST',
         mode: 'cors',
         headers: {

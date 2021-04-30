@@ -8,7 +8,7 @@ export default class HeaderWithLogin extends React.Component {
         return (
             <div>
                 <nav className="navbar navbar-static-top navbar-expand-xl navbar-dark bg-dark">
-                    <a className="nav-link" href="/">
+                    <a className="nav-link" href="/dashboard">
                         <section className="navbar-brand"><span className="marke">Marke</span>Tree</section>
                     </a>
 

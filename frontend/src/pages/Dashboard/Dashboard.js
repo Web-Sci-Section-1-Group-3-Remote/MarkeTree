@@ -50,7 +50,7 @@ export default class Dashboard extends React.Component {
             <section id="mainContent">
                 
 
-            {this.state.loading ? (null) : (<Jumbotron title = {"Hello, " + this.state.username} slogan= { "\u2605 " + (this.state.user_rating ? this.state.user_rating + ' (' + this.state.user_rating_count + ' ratings)' : 'No Ratings')} img={sale}/>)}
+            {this.state.loading ? (null) : (<Jumbotron title = {"Hello, " + this.state.username} slogan= { "\u2605 " + (this.state.user_rating ? this.state.user_rating.toFixed(2) + ' (' + this.state.user_rating_count + ' ratings)' : 'No Ratings')} img={sale}/>)}
     
                 <div className="background-yellow">
               

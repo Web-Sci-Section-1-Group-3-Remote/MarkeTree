@@ -11,13 +11,14 @@ import Michael from "../../images/michael.jpg";
 import Anthony from "../../images/anthony.jpg";
 import Yanshen from "../../images/yanshen.jpg";
 import Bo from "../../images/Bo.jpg";
+import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 
 export default class About extends React.Component {
     render() {
         return (
 
             <div>
-                <Header />
+                <HeaderWithLogin />
                 <section id="mainContent">
 
                     <Jumbotron

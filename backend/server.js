@@ -475,7 +475,7 @@ app.post('/rate-user', async (req, res) => {
     let noratings = parseInt(userdocument.number_ratings);
     let currentrating = parseFloat(userdocument.user_rating);
 
-    if(currentrating == null){
+    if(currentrating == null || isNaN(currentrating)){
       currentrating = 0;
     }
     

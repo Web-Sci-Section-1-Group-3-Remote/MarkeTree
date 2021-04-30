@@ -7,6 +7,7 @@ import "mdbreact/dist/css/mdb.css";
 
 import auth from "../../images/auth-user.png";
 import team from "../../images/team.png";
+import Michael from "../../images/michael.jpg";
 import Anthony from "../../images/anthony.jpg";
 import Yanshen from "../../images/yanshen.jpg";
 import Bo from "../../images/Bo.jpg";
@@ -32,9 +33,9 @@ export default class About extends React.Component {
                             <div className="row">
 
                                 <div className="col-3 content-block">
-                                    <img src={auth} className="sub-image" height="180" width="180" alt="Certified Users"></img>
+                                    <img src={Michael} className="sub-image" height="180" width="180" alt="Certified Users"></img>
                                     <h5 className="sub-section">Michael Peters</h5>
-                                    <p className="brief">Epic Gamer</p>
+                                    <p className="brief">Flexbox Machine</p>
                                 </div>
 
                                 <div className="col-3 content-block">

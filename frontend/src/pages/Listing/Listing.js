@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+import Header from '../../components/Header/Header';
 import Product from '../../components/Product/Product';
 import './Listing.css';
 
-import bike1 from "../../images/images/bike1.jpg";
-import bike2 from "../../images/images/bike2.jpg";
-import bike3 from "../../images/images/bike3.jpg";
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
 
 export default class Listing extends React.Component {
 
@@ -23,23 +31,25 @@ export default class Listing extends React.Component {
 
   }
 
+  //get the listing based off of id from the url
   componentDidMount() {
     window.addEventListener('load', () => { this.getListingInfo() });
     // this.setState({loading: false});
   }
 
-
   render() {
     return (
       <div>
-        <HeaderWithLogin />
-        <section id="listingContent">
+        { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
 
+        <section id="listingContent">
+          {/*if the data is loaded load the description of the name*/}
           <h1 id="name">{this.state.loading ? (null) : (this.state.name)}</h1>
 
           <div id="listingCarousel" className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
 
+              {/*if the listing is loaded loop through images and add to carousel*/}
               {this.state.loading ? (null) : this.state.images.map((value, index) => {
 
                 if (index === 0) {
@@ -51,6 +61,8 @@ export default class Listing extends React.Component {
               })}
 
             </ol>
+
+            {/*if the listing is loaded loop through images and add to carousel*/}
             <div className="carousel-inner">
 
               {this.state.loading ? (null) : this.state.images.map((value, index) => {
@@ -78,7 +90,7 @@ export default class Listing extends React.Component {
                         </section>
 
             <section id="Desc" className="listingDesc">
-
+              {/*if the data is loaded load the description of the item*/}
               {this.state.loading ? (null) : (this.state.desc)}
             </section>
 
@@ -95,13 +107,14 @@ export default class Listing extends React.Component {
               </section>
 
             <section id="price" className="listingDesc">
-
+              {/*if the data is loaded load the description of the price*/}
               {this.state.loading ? (null) : ("$" + this.state.price)}
             </section>
 
             <section id="paymentButtons">
               {console.log("STATE: ", this.state)}
-              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc} seller={this.state.seller} id={this.state.id}/>)}
+              {/*if the data is loaded load the PayPal Components*/}
+              {this.state.loading ? (null) : (<Product price={this.state.price} name={this.state.name} desc={this.state.desc} seller={this.state.seller} id={this.state.id} />)}
             </section>
           </div>
 
@@ -118,6 +131,7 @@ export default class Listing extends React.Component {
 
     console.log('id', id);
 
+    //fetches to our API with the id of the item based off of the query string
     fetch('http://localhost:3030/get-listing/' + id, {
       method: 'GET',
       mode: 'cors'

@@ -7,7 +7,6 @@ const uuidv4 = require('uuid').v4;
 const cors = require('cors');
 const fs = require("fs");
 
-
 const app = express();
 const port = 3030;
 
@@ -18,12 +17,14 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+// MongoDB client link to connect to the Database.
 let connected = false;
 const client = new MongoClient(
   'mongodb+srv://dbUser:MarkeTreePassword@marketree.ridw2.mongodb.net/MarkeTree?retryWrites=true&w=majority',
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
+// Function to connect with MongoDB and ensure the connection.
 async function ensureConnection() {
   if (connected) return;
   try {
@@ -34,7 +35,10 @@ async function ensureConnection() {
   }
 }
 
+
 // with a username and password
+// INPUT: { username, password }
+// OUTPUT: { cookie } or { err }
 app.post('/api/create-user', async (req, res) => {
   let username = req.body.username;
   let password = req.body.password;
@@ -62,7 +66,6 @@ app.post('/api/create-user', async (req, res) => {
     res.json({ err: 'unable to add user' });
     return;
   }
-
 
   let saltBuff = crypto.randomBytes(128);
   let salt = saltBuff.toString('hex');
@@ -110,6 +113,8 @@ app.post('/api/create-user', async (req, res) => {
 });
 
 // With a username and a password
+// INPUT: { username, password }
+// OUTPUT: { cookie } or { err }
 app.post('/api/authenticate-user', async (req, res) => {
   // username-password for now
   let username = req.body.username;
@@ -182,6 +187,8 @@ app.post('/api/authenticate-user', async (req, res) => {
   res.json({ cookie: cookie });
 });
 
+
+// Verifies a cookie is a certain user and returns the user object.
 async function verifyCookie(cookie) {
   let allUsers = null;
   await ensureConnection();
@@ -220,6 +227,8 @@ async function verifyCookie(cookie) {
 }
 
 // With a cookie token
+// INPUT: { cookie }
+// OUTPUT: { success: true, user } or { err }
 app.post('/api/verify-user', async (req, res) => {
   let cookie = req.body.cookie;
 
@@ -233,6 +242,8 @@ app.post('/api/verify-user', async (req, res) => {
   }
 });
 
+// INPUT: {  }
+// OUTPUT: { listings: [] } or { err }
 app.get('/api/listings', async (req, res) => {
   let listings = null;
   await ensureConnection();
@@ -254,6 +265,8 @@ app.get('/api/listings', async (req, res) => {
 
 
 // Create an event, store the event info into the Event collection in the MongoDB
+// INPUT: { data: { host, eventName, eventLocation, date, time, description } }
+// OUTPUT: {  }
 app.post('/post-event', async (req, res) => {
   let message = req.body.data;
   console.log(message);
@@ -290,6 +303,8 @@ app.post('/post-event', async (req, res) => {
 })
 
 // Get the 'event' information from the DB, and send back to the client.
+// INPUT: {  }
+// OUTPUT: { [] }, a list of events
 app.get('/get-event', async (req, res) => {
   await ensureConnection();
   let db = client.db('MarkeTree');
@@ -311,6 +326,8 @@ function readAndWriteFile(singleImg, newPath) {
 }
 
 // Create listing, store the listing item info into the Listing collection in the MongoDB
+// INPUT: { listingData: { username, item, category, description, price, images } }
+// OUTPUT: { listing_id } or { err }
 app.post('/api/post-listing', async (req, res) => {
   let message = req.body.listingData;
   let username = message.username;
@@ -370,15 +387,18 @@ app.post('/api/post-listing', async (req, res) => {
     res.json({ err: 'unable to search database' });
   }
 
-})
+});
+
 // Browse Listing API
+// INPUT: {  }
+// OUTPUT: { [] } list of listings
 app.get('/browse-listing', async (req, res) => {
 
   await ensureConnection();
   try {
     let db = client.db('MarkeTree');
     let collection = db.collection('Listings');
-    let document = await collection.find({buyer: null});
+    let document = await collection.find({ buyer: null });
     let listings = await document.toArray();
 
     for (let listing of listings) {
@@ -399,7 +419,9 @@ app.get('/browse-listing', async (req, res) => {
 
 })
 
-//Filter Listing API
+// Filter Listing API
+// INPUT: { cat } category
+// OUTPUT: { [] } list of listings
 app.get('/filter-listing/:cat', async (req, res) => {
   await ensureConnection();
   try {
@@ -424,8 +446,11 @@ app.get('/filter-listing/:cat', async (req, res) => {
   } catch (e) {
     console.error('Unable to search database', e);
   }
-})
+});
+
 //http://localhost:3030/get-listing/1
+// INPUT: { id }
+// OUTPUT: { listing } or { err }
 app.get('/get-listing/:id', async (req, res) => {
 
   await ensureConnection();
@@ -451,6 +476,8 @@ app.get('/get-listing/:id', async (req, res) => {
 
 });
 
+// INPUT: { ratingData: { username, seller, rating, id } }
+// OUTPUT: { success: true } or { err }
 app.post('/rate-user', async (req, res) => {
 
   let username = req.body.ratingData.username;
@@ -458,7 +485,7 @@ app.post('/rate-user', async (req, res) => {
   let rating = req.body.ratingData.rating;
   let listingid = req.body.ratingData.id;
 
-  console.log("BODY: ",req.body);
+  console.log("BODY: ", req.body);
 
   await ensureConnection();
   try {
@@ -470,15 +497,15 @@ app.post('/rate-user', async (req, res) => {
     console.log(listingid);
     // listingscollection.findOneAndUpdate();
     let listingdocument = await listingscollection.findOne({ listing_id: listingid });
-    let userdocument = await userscollection.findOne({username: seller});
+    let userdocument = await userscollection.findOne({ username: seller });
 
     let noratings = parseInt(userdocument.number_ratings);
     let currentrating = parseFloat(userdocument.user_rating);
 
-    if(currentrating == null || isNaN(currentrating)){
+    if (currentrating == null || isNaN(currentrating)) {
       currentrating = 0;
     }
-    
+
     currentrating = parseFloat((currentrating * noratings + rating) / (noratings + 1));
     console.log('new rating:', currentrating, noratings + 1);
     let newvalues = { $set: { buyer: username } };
@@ -487,7 +514,7 @@ app.post('/rate-user', async (req, res) => {
     userscollection.updateOne({ username: seller }, newvalues);
 
     res.json({ success: true });
-    
+
     // console.log('giving back id#', document.id);
     // res.json(document);
   } catch (e) {
@@ -496,7 +523,7 @@ app.post('/rate-user', async (req, res) => {
   }
 });
 
-// Listen to the port 3000
+/* ******************************  Listen to the port 3000 **********************************************/
 app.listen(port, () => {
   console.log('listening on *:3030')
 })

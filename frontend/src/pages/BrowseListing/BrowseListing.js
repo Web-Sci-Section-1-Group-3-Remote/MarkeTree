@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import { Link } from 'react-router-dom';
 import './BrowseListing.css';
@@ -28,7 +29,7 @@ export default class BrowseListing extends React.Component {
     render() {
         return (
             <div>
-                <HeaderWithLogin />
+                { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
                 <div id="listings">
                     <div className="topbarWrapper">
                         <div className="topbar-header">

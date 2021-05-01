@@ -1,19 +1,35 @@
 import React from 'react';
+import Header from '../../components/Header/Header';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin'
 
 import "./Event.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "mdbreact/dist/css/mdb.css";
 
+
+// A getCookie function to check the user's verify login cookie.
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
 export default class Event extends React.Component {
 
+    // Declare the state variable
     constructor(props) {
         super(props)
         this.state = {
             showInfo: true
         }
     }
-    // const[show, setShow]=useState(true)
+
+    // Set the state variable
     displaying() {
         this.setState({
             showInfo: false
@@ -22,8 +38,8 @@ export default class Event extends React.Component {
 
     }
 
+    // To set the state variable.
     displaying2() {
-
         this.setState({
             showInfo: true
         })
@@ -38,7 +54,7 @@ export default class Event extends React.Component {
     render() {
         return (
             <div>
-                <HeaderWithLogin />
+                { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
 
                 <div id="creating" className="container">
                     <div id="rowNum" className="row">
@@ -192,8 +208,6 @@ export default class Event extends React.Component {
         let date = document.getElementById('inputDate').value;
         let time = document.getElementById('inputTime').value;
         let desc = document.getElementById('inputEventDescription').value;
-
-
 
         const data = {
             host: host,

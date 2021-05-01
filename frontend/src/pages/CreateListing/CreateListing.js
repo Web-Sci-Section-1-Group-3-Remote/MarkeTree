@@ -1,6 +1,7 @@
 import React from 'react';
 
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+import Header from '../../components/Header/Header';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./CreateListing.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +10,8 @@ import "mdbreact/dist/css/mdb.css";
 
 import create from "../../images/createListing.jpg"
 
+// A function to check the user's login cookie.
+// @param If the user don't have the verify-login cookie, he might be prohibit to access this page.
 function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(';');
@@ -24,9 +27,11 @@ export default class CreateListing extends React.Component {
     render() {
         return (
             <div>
-                <HeaderWithLogin />
+                {/* The getCookie to verify the user cookie */}
+                { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
                 <section id="mainContent">
 
+                    {/* Call the Jumbotron component, and update the Jumbotron elements. */}
                     <Jumbotron
                         title="Create Listing"
                         slogan="Use the ultimate selling platform"
@@ -35,6 +40,7 @@ export default class CreateListing extends React.Component {
                     />
 
 
+                    {/* Create Listing Form */}
                     <div id="creating" className="container">
                         <h2 className="what">Create Listing</h2>
                         <hr></hr>
@@ -100,18 +106,9 @@ export default class CreateListing extends React.Component {
 
         )
     }
-    async getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
 
-
+    // The createListing function to accept all the user's input and convert the image file to data string and data url.
+    // @params Communicate with the backend APIs, POST a new json user's input and create a new document into database in the backend.
     async createListing() {
         let item = document.getElementById("inputItem").value;
         let category = document.getElementById("inputCategory").value;

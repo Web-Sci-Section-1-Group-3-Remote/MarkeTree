@@ -76,7 +76,7 @@ export default class Signup extends React.Component {
             </div>
         )
     }
-
+    //User Signup using information provided
     async userSignUp() {
         let username = document.querySelector('#usernameInput').value;
         let password = document.querySelector('#passwordInput').value;

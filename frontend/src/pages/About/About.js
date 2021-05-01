@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
+import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import "./About.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,14 +12,24 @@ import Michael from "../../images/michael.jpg";
 import Anthony from "../../images/anthony.jpg";
 import Yanshen from "../../images/yanshen.jpg";
 import Bo from "../../images/Bo.jpg";
-import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
 export default class About extends React.Component {
     render() {
         return (
 
             <div>
-                <HeaderWithLogin />
+                { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
                 <section id="mainContent">
 
                     <Jumbotron

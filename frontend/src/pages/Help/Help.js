@@ -1,21 +1,33 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
-import "./Help.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "mdbreact/dist/css/mdb.css";
-
+import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
 import help from "../../images/help.jpg"
 import auth_user from "../../images/auth-user.png";
 import used_item from "../../images/used-item.jpg";
 import book from "../../images/book.jpg";
-import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+
+import "./Help.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "mdbreact/dist/css/mdb.css";
+
+// A function to check with the user's login cookie.
+function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
 
 export default class Help extends React.Component {
     render() {
         return (
             <div>
-                <HeaderWithLogin />
+                { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
                 <section id="mainContent">
                     <Jumbotron
                         title="Need Help"

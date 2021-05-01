@@ -1,9 +1,6 @@
 import React from 'react';
 import Header from '../../components/Header/Header';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
-import "./Homepage.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import "mdbreact/dist/css/mdb.css"; 
 
 import sale from "../../images/sale.jpg";
 import auth_user from "../../images/auth-user.png";
@@ -12,6 +9,10 @@ import book from "../../images/book.jpg";
 import transaction from "../../images/transaction.png";
 import quick_find from "../../images/quick-finding.png";
 import union from "../../images/union.jpg";
+
+import "./Homepage.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "mdbreact/dist/css/mdb.css"; 
 
 
 export default class Homepage extends React.Component {

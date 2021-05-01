@@ -41,6 +41,7 @@ export default class HeaderWithLogin extends React.Component {
             </div>
         )
     }
+    //Clear out authetication cookie and logout user
     logout() {
         var cookies = document.cookie.split(";");
         console.log(cookies);

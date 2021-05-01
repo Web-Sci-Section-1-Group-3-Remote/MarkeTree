@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderWithLogin from '../../components/HeaderWithLogin/HeaderWithLogin';
+import Header from '../../components/Header/Header';
 import Jumbotron from '../../components/Jumbotron/Jumbotron';
 import Login from '..//Login/Login'
 import "./Dashboard.css";
@@ -36,7 +37,7 @@ export default class Dashboard extends React.Component {
           user_rating_count: 'Loading...',
         };
     }
-    
+    //verify user upon loading
     componentDidMount() {
         window.addEventListener('load', this.verify());
     }
@@ -46,7 +47,7 @@ export default class Dashboard extends React.Component {
 
         return (
             <div>
-            <HeaderWithLogin />
+            { getCookie('username') != null ? <HeaderWithLogin /> : <Header />}
             <section id="mainContent">
                 
 
@@ -157,7 +158,7 @@ export default class Dashboard extends React.Component {
         </div>
         )
     }
-
+    // Verify if user is already logged in
     async verify() {
         let username = getCookie('username');
         let token = getCookie('usertoken');

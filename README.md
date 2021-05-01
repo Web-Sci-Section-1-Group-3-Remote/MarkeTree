@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Web-Sci-Section-1-Group-3-Remote/MarkeTree/blob/master/frontend/src/images/logo.png" width="20%" title="MarkeTree Logo">
+  <img src="https://github.com/Web-Sci-Section-1-Group-3-Remote/MarkeTree/blob/master/frontend/src/images/logo.png" width="50%" title="MarkeTree Logo">
 </p>
 
 # MarkeTree

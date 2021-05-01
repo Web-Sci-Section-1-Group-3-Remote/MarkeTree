@@ -152,6 +152,7 @@ a:hover {
 #itemSearch {
   margin: 5px 5px 10px 5px;
   width: 600px;
+  max-width: 90vw;
   padding: 8px 10px;
   border-radius: 5px;
   border: 2px solid #000000;
